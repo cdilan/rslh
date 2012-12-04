@@ -1,0 +1,5 @@
+[29-Nov-2012 13:57:04] PHP Parse error:  syntax error, unexpected T_ECHO in /home/cdilanc/public_html/rslh/index.php on line 2
+[30-Nov-2012 13:58:03] PHP Fatal error:  Call to undefined function  lb_loginwidget() in /home/cdilanc/public_html/rslh/wp-content/themes/gamecdilan/cms/shortcodes.php on line 28
+[30-Nov-2012 14:01:15] PHP Fatal error:  Call to undefined function  lb_loginwidget() in /home/cdilanc/public_html/rslh/wp-content/themes/gamecdilan/cms/shortcodes.php on line 28
+[30-Nov-2012 14:02:18] PHP Fatal error:  Call to undefined function  lb_loginwidget() in /home/cdilanc/public_html/rslh/wp-content/themes/gamecdilan/cms/shortcodes.php on line 28
+[30-Nov-2012 14:02:18] PHP Fatal error:  Call to undefined function  lb_loginwidget() in /home/cdilanc/public_html/rslh/wp-content/themes/gamecdilan/cms/shortcodes.php on line 28
