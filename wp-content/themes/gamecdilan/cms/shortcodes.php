@@ -33,7 +33,7 @@ function lb_shortcode () {
 
 add_shortcode( 'lanoba', 'lb_shortcode' );
 	function lb_shortcode () {
-		do_action( 'wordpress_social_login' );
+		do_action( 'social_connect_form' );
 	}
 
 ?>
