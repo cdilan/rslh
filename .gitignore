@@ -166,3 +166,6 @@ pip-log.txt
 ## Rafael Pires
 #################
 .wp-config.php
+
+###bug inexplicavel com esse arquivo
+.class=simplepie.php
