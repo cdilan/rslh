@@ -534,3 +534,53 @@ body{
 .box [class*="span"] {
 	margin: 10px;
 }
+
+/* Perfil do Jogador*/
+
+#player-avatar{
+	float: left;
+	margin-right: 10px;
+}
+
+#player-info h1{
+	font-size: 27px;
+	line-height: 120%;
+	margin: 5px 0 0;
+}
+
+#player-info p{
+	margin: 5px 0;
+}
+
+#player #points h2{
+	font-size: 24px;
+	line-height: 165%;
+	text-align: center;
+	margin: 10px 0 0;
+}
+
+#player #points h2 strong{
+	font-size: 300%;
+	display: block;
+}
+
+#player .well-small h3{
+	margin: 0 0 5px;
+	font-size: 17px;
+	line-height: 120%;
+}
+
+#player-medal .medal{
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+#player-medal .medal li{
+	margin-right: 5px;
+	display: inline;
+}
+
+#player-medal .medal img{
+	width: 64px;	
+}
