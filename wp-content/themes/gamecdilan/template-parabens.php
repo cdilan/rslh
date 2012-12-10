@@ -7,6 +7,9 @@ get_header(); ?>
              <?php if (have_posts()) : ?>
                 <?php while (have_posts()) : the_post(); ?>
 
+                <script type="text/javascript">
+                    $('#myModal').modal('show');
+                </script>
                 <section id="parabens">
                     <div class="container">
                         <div class="entry">
