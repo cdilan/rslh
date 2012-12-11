@@ -536,6 +536,9 @@ body{
 }
 
 /* Perfil do Jogador*/
+#player .thumbnail{
+	line-height: 26px;
+}
 
 #player-avatar{
 	float: left;
