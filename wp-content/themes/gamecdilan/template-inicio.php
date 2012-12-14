@@ -57,21 +57,21 @@ get_header(); ?>
                                     <div class="well">
                                         <h2>Reinvente sua lanhouse</h2>
                                         <p class="lead">Navegue nos episódios e descubra novas estórias com mais atividades e ganhe pontos reinventando sua lanhouse</p>
-                                        <a href="<?php bloginfo('url'); ?>/episodios/" class="btn btn-primary">Navegar nos episódios</a>
+                                        <a href="<?php bloginfo('url'); ?>/episodios/" class="btn pull-right">Navegar nos episódios</a>
                                     </div>
                                 </div>
                                 <div class="span4">
                                     <div class="well">
                                         <h2>Colabore com outros jogadores</h2>
                                         <p class="lead">Conheça outros jogadores e avalie suas atividades votando e enviando sua opnião</p>
-                                        <a href="#" class="btn disabled">Conhecer outros jogadores</a>
+                                        <a href="../colabore-com-outros-jogadores" class="btn pull-right">Conhecer outros jogadores</a>
                                     </div>
                                 </div>
                                 <div class="span4">
                                     <div class="well">
                                         <h2>Participe das corridas</h2>
                                         <p class="lead">Ganhe prêmios! Saiba como funcionam as corridas, conheça as regras e veja o que fazer para começar a participar</p>
-                                        <a href="#" class="btn disabled">Ler a regulamentação</a>
+                                        <a href="../premiacoes" class="btn pull-right">Ler a regulamentação</a>
                                     </div>
                                 </div>                            
                             </div>
