@@ -587,3 +587,8 @@ body{
 #player-medal .medal img{
 	width: 64px;	
 }
+
+/* esconde mensagem quando comentário estiver fechado */
+.nocomments {
+	display: none;
+}
