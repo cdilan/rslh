@@ -41,8 +41,10 @@ get_header(); ?>
     <div class="container">
         <?php
             $id_do_jogador = $_GET['uid'];
-
-
+            if (!$id_do_jogador) {
+                $id_do_jogador = get_current_user_id();
+            }
+            
             $entregas_do_jogador = $wpdb->get_results(   "
                                                             SELECT *
                                                             FROM $wpdb->posts
