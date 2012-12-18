@@ -37,9 +37,9 @@ function js_head_load(){
 	wp_register_script('modernizr', get_bloginfo('template_directory').'/js/modernizr.min.js');
 	wp_enqueue_script('modernizr');
 
-	//Load Game.js
+	//Load Modernizr
 	wp_register_script('game', get_bloginfo('template_directory').'/js/game.js');
-	wp_enqueue_script('game');
+	wp_enqueue_script('game');	
 
 	if(is_page_template( 'template-episodios.php' )){
 
