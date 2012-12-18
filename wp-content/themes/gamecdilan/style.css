@@ -482,18 +482,12 @@ body{
 	line-height: 120%;
 }
 
-#entrega-jogadores h3{
-	font-size: 17px;
-	line-height: 110%;
+#btn-atividade{
+	margin: 25px 0 20px;
 }
 
-#entrega-jogadores .thumbnail{
-	overflow: hidden;
-}
-
-#entrega-jogadores .thumbnail img{
-	float: left;
-	margin-right: 8px;
+#btn-atividade a{
+	display: block;
 }
 
 /* Lista de jogadores */
