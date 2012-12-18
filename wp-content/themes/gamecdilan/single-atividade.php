@@ -20,8 +20,41 @@
                                     <?php echo do_shortcode(get_post_meta( $post->ID, 'form_atividade', true )); ?>
                                 </div>
                             <?php endif; ?>
-                        </div>
+                            <?php
+                                // pega tag_atividade deste post
+                                $tag_atividade_id = ( wp_get_post_terms($post->ID, 'tag_atividade', array("fields" => "ids")));
 
+                                //lista entregas com essa tag_atividade
+                                $args = array(  'numberposts' => 20,
+                                                'post_type'=>'entrega',
+                                                'orderby'=>'rand',
+                                                'tax_query'=> array ( array (   'taxonomy'=>'tag_atividade',
+                                                                                'field'=>'id',
+                                                                                'terms'=>$tag_atividade_id[0] ))) ;
+                                $myposts = get_posts( $args );
+                                if(!empty($myposts)){
+                            ?>
+                                <section id="lista-entregas">
+                                    <h3>Jogadores que entregaram essa atividade</h3>
+                                    <ul class="thumbnails">
+                                        <?php
+                                        foreach( $myposts as $post ) :  setup_postdata($post); ?>
+                                            <li class="span2">
+                                                <div class="thumbnail">
+                                                    <a href="<?php the_permalink(); ?>"><?php echo get_avatar( get_the_author_meta('ID'), 120 ); ?></a>
+                                                    <h5><a href="<?php the_permalink(); ?>"><?php the_author(); ?></a></h5>
+                                                </div>
+                                            </li>
+                                        <?php endforeach; ?>
+                                    </ul>
+                                </section>
+                            <?php } ?>
+                            <section id="comentarios">
+                                <div class="container" >
+                                    <?php comments_template( '', true ); ?>
+                                </div>
+                            </section>
+                        </div>
                         <aside class="span4">
                             <?php if(get_post_meta($post->ID, 'dicas_atividade', true)) : ?>
                                 <div id="dicas" class="widget">
@@ -39,80 +72,43 @@
                                     </div>
                                 </div>
                             <?php endif; ?>
-                                <div class="widget">
-                                    <h3>Outras atividades</h3>
-                                    <div class="well">
-                                        <?php $episodio_atividade = wp_get_post_terms($post->ID, 'episodio', array("fields" => "ids")); ?>
-                                        <ul>
-                                            <?php
-                                            $args = array(
-                                                'numberposts' => 20,
-                                                'post_type'=>'atividade',
-                                                'tax_query'=> array(
-                                                    array(
-                                                        'taxonomy'=>'episodio',
-                                                        'field'=>'id',
-                                                        'terms'=>$episodio_atividade[0]
-                                                        )
-                                                    )
-                                                );
+                            <?php
+                                $episodio_atividade = wp_get_post_terms($post->ID, 'episodio', array("fields" => "ids"));
+                                $args = array(
+                                    'numberposts' => 20,
+                                    'post_type'=>'atividade',
+                                    'tax_query'=> array(
+                                        array(
+                                            'taxonomy'=>'episodio',
+                                            'field'=>'id',
+                                            'terms'=>$episodio_atividade[0]
+                                            )
+                                        )
+                                    );
+                                $episodio_atividade = get_posts( $args );
+                                if(!empty($episodio_atividade)){
+                            ?>
+                            <div class="widget">
+                                <h3>Outras atividades</h3>
+                                <div class="well">
+                                    <ul>
+                                        <?php
+                                            
                                             $outras_atividades = get_posts($args);
-                                            foreach( $outras_atividades as $post ) : setup_postdata($post); ?>
-                                                <li>
-                                                    <h5><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h5>
-                                                </li>
-                                            <?php endforeach; ?>
-                                        </ul>
-                                    </div>
+                                            foreach( $outras_atividades as $post ) : setup_postdata($post);
+                                        ?>
+                                            <li>
+                                                <h5><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h5>
+                                            </li>
+                                        <?php endforeach; ?>
+                                    </ul>
                                 </div>
+                            </div>
+                            <?php } ?>
                         </aside>                            
                     </div>
                 </div>
             </section>
-
-            <section id="comentarios">
-                <div class="container" >
-                    <?php comments_template( '', true ); ?>
-                </div>
-            </section>
-
-            <?php
-                // pega tag_atividade deste post
-                $tag_atividade_id = ( wp_get_post_terms($post->ID, 'tag_atividade', array("fields" => "ids")));
-
-                //lista entregas com essa tag_atividade
-                $args = array(  'numberposts' => 20,
-                                'post_type'=>'entrega',
-                                'orderby'=>'rand',
-                                'tax_query'=> array ( array (   'taxonomy'=>'tag_atividade',
-                                                                'field'=>'id',
-                                                                'terms'=>$tag_atividade_id[0] ))) ;
-                $myposts = get_posts( $args );
-                if(!empty($myposts)){
-            ?>
-
-            <section id="lista-entregas">
-                <div class="container">
-                    <div class="page-header">
-                        <h3>Jogadores que entregaram essa atividade</h3>
-                    </div>
-                    <ul class="thumbnails">
-                        <?php
-                        foreach( $myposts as $post ) :  setup_postdata($post); ?>
-                            <li class="span3">
-                                <div class="thumbnail">
-                                    <a href="<?php the_permalink(); ?>">
-                                    <span class="pull-left"><?php echo get_avatar( get_the_author_meta('ID'), 40 ); ?></span>
-                                    <h5><?php the_author(); ?></h5>
-                                    </a>
-                                </div>
-                            </li>
-                        <?php endforeach; ?>
-                    </ul>
-                </div>
-            </section>
-            <?php } ?>
-
             <?php
         endwhile;
     endif;

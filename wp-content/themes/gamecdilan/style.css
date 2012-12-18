@@ -85,12 +85,8 @@ body{
 	font-size: 33px;
 }
 
-#home h2{
-	font-size: px;
-}
-
 #home img{
-	margin-top: -30px 
+	margin-top: -70px 
 }
 
 #home .lead{
@@ -409,6 +405,19 @@ body{
 	-webkit-border-radius: 4px;
     -moz-border-radius: 4px;
     border-radius: 4px;	
+}
+
+/*lista-entregas*/
+
+#lista-entregas .thumbnail{
+	background-color: #FFF;
+	text-align: center;
+}
+
+#lista-entregas .thumbnail h5{
+	font-size: 13px;
+	margin: 5px 0 0;
+
 }
 
 /* Lista de jogadores */
