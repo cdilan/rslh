@@ -13,6 +13,17 @@
                                     <div id="entrega" class="thumbnail entry">
                                         <?php the_content(); ?>
                                     </div>
+                                    <section id="comentarios">
+                                        <?php comments_template( '', true ); ?>
+                                    </section>                   
+                                </div>
+                                <aside class="span4">
+                                    <div id="entrega-jogador" class="well well-small">
+                                        <?php echo get_avatar( get_the_author_meta('ID'), 80 ); ?>
+                                        <h3><?php the_author(); ?></h3>
+                                        <h4><?php echo get_user_meta(get_the_author_meta('ID'),'lanhouse', true); ?></h4>
+                                    </div>
+
                                     <?php
                                         global $post;
                                         $tmp_post = $post;
@@ -22,20 +33,21 @@
                                         $args = array(  'numberposts' => 20,
                                                         'post_type'=>'entrega',
                                                         'orderby'=>'rand',
+                                                        'exclude' => $post->ID,
                                                         'tax_query'=> array ( array (   'taxonomy'=>'tag_atividade',
                                                                                         'field'=>'id',
                                                                                         'terms'=>$tag_atividade_id[0] ))) ;
                                         $myposts = get_posts( $args );
                                         if(!empty($myposts)) :
                                     ?>
-                                        <section id="lista-entregas">
-                                            <h3>Jogadores que entregaram essa atividade</h3>
+                                        <section id="entrega-jogadores">
+                                            <h3>Jogadores que também fizeram esta atividade</h3>
                                             <ul class="thumbnails">
                                                 <?php
                                                 foreach( $myposts as $post ) :  setup_postdata($post); ?>
-                                                    <li class="span2">
+                                                    <li class="span4">
                                                         <div class="thumbnail">
-                                                            <a href="<?php the_permalink(); ?>"><?php echo get_avatar( get_the_author_meta('ID'), 120 ); ?></a>
+                                                            <a href="<?php the_permalink(); ?>"><?php echo get_avatar( get_the_author_meta('ID'), 48 ); ?></a>
                                                             <h5><a href="<?php the_permalink(); ?>"><?php the_author(); ?></a></h5>
                                                         </div>
                                                     </li>
@@ -44,19 +56,7 @@
                                         </section>
                                     <?php endif; ?>
                                     <?php $post = $tmp_post; ?>
-
-                                    <section id="comentarios">
-                                        <?php comments_template( '', true ); ?>
-                                    </section>
-
-                                </div>
-                                <div class="span4">
-                                    <div class="well">
-                                        <?php echo get_avatar( get_the_author_meta('ID'), 128 ); ?>
-                                        <h3><?php the_author(); ?></h3>
-                                        <h4><?php echo get_user_meta(get_the_author_meta('ID'),'lanhouse', true); ?></h4>
-                                    </div>
-                                </div>
+                                </aside>
                             </div>
                         </div>
                     </section>
