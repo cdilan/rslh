@@ -187,7 +187,10 @@ class FrmProEntry{
             }else{
                 $record = $frm_created_entry[$form->id]['entry_id'];
                 $saved_message = isset($form_options['success_msg']) ? $form_options['success_msg'] : $frm_settings->success_msg;
-                $message = ($record) ? $saved_message : $frm_settings->failed_msg;
+                $saved_message = apply_filters('frm_content', $saved_message, $form, ($record ? $record : false));
+                $message = ($record) ? wpautop(do_shortcode($saved_message)) : $frm_settings->failed_msg;
+                $message = '<div class="frm_message" id="message">'. $message .'</div>';
+
                 $frmpro_entries_controller->show_responses($record, $fields, $form, $title, $description, $message, '', $form_options);
             }
             add_filter('frm_continue_to_create', create_function('', 'return false;'));

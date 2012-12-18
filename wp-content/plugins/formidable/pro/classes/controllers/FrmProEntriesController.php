@@ -608,7 +608,11 @@ class FrmProEntriesController{
                     
                     if ($conf_method == 'message'){
                         global $frmpro_settings;
-                        $message = '<div class="frm_message" id="message">'. do_shortcode(isset($form->options['edit_msg']) ? $form->options['edit_msg'] : $frmpro_settings->edit_msg).'</div>';
+
+                    $message = apply_filters('frm_content', (isset($form->options['edit_msg']) ? $form->options['edit_msg'] : $frmpro_settings->edit_msg), $form);
+                    $message = '<div class="frm_message" id="message">'. do_shortcode($message) .'</div>';
+
+                        
                     }else{
                         do_action('frm_success_action', $conf_method, $form, $form->options, $params['id']);
                         add_filter('frm_continue_to_new', create_function('', "return false;"), 15);
