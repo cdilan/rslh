@@ -58,7 +58,7 @@
                         <ul class="nav">                        
                             <?php wp_nav_menu(array('theme_location' => 'topmenu', 'container' => false, 'items_wrap' => '%3$s', 'menu_id' => 'top-nav', 'walker' => new Bootstrap_Walker_Nav_Menu())); ?>
                             <?php if(is_user_logged_in()) : ?>
-                                <li class="logout"><a href="<?php echo wp_logout_url(); ?>" title="Logout" class=>Logout</a></li>
+                                <li class="logout"><a href="<?php echo wp_logout_url(home_url()); ?>" title="Logout" class=>Logout</a></li>
                             <?php endif; ?>
                         </ul>
                     </div>
