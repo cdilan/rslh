@@ -120,6 +120,7 @@ body{
 
 #episodios .thumbnail{
 	height: 450px;
+	background-color: #FFF;
 }
 
 #episodios .thumbnail h2{
@@ -163,6 +164,7 @@ body{
 
 #lista-atividades .thumbnail{
 	height: 150px;
+	background-color: #FFF;
 }
 
 #lista-atividades .thumbnail img{
@@ -538,6 +540,7 @@ body{
 /* Perfil do Jogador*/
 #player .thumbnail{
 	line-height: 26px;
+	background-color: #FFF; 
 }
 
 #player-avatar{

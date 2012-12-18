@@ -39,23 +39,57 @@
                                     </div>
                                 </div>
                             <?php endif; ?>
+                                <div class="widget">
+                                    <h3>Outras atividades</h3>
+                                    <div class="well">
+                                        <?php $episodio_atividade = wp_get_post_terms($post->ID, 'episodio', array("fields" => "ids")); ?>
+                                        <ul>
+                                            <?php
+                                            $args = array(
+                                                'numberposts' => 20,
+                                                'post_type'=>'atividade',
+                                                'tax_query'=> array(
+                                                    array(
+                                                        'taxonomy'=>'episodio',
+                                                        'field'=>'id',
+                                                        'terms'=>$episodio_atividade[0]
+                                                        )
+                                                    )
+                                                );
+                                            $outras_atividades = get_posts($args);
+                                            foreach( $outras_atividades as $post ) : setup_postdata($post); ?>
+                                                <li>
+                                                    <h5><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h5>
+                                                </li>
+                                            <?php endforeach; ?>
+                                        </ul>
+                                    </div>
+                                </div>
                         </aside>                            
                     </div>
                 </div>
             </section>
 
-            <?php
-            // pega tag_atividade deste post
-            $tag_atividade_id = ( wp_get_post_terms($post->ID, 'tag_atividade', array("fields" => "ids")));
-
-            //lista entregas com essa tag_atividade
-            ?>
             <section id="comentarios">
                 <div class="container" >
                     <?php comments_template( '', true ); ?>
                 </div>
             </section>
 
+            <?php
+                // pega tag_atividade deste post
+                $tag_atividade_id = ( wp_get_post_terms($post->ID, 'tag_atividade', array("fields" => "ids")));
+
+                //lista entregas com essa tag_atividade
+                $args = array(  'numberposts' => 20,
+                                'post_type'=>'entrega',
+                                'orderby'=>'rand',
+                                'tax_query'=> array ( array (   'taxonomy'=>'tag_atividade',
+                                                                'field'=>'id',
+                                                                'terms'=>$tag_atividade_id[0] ))) ;
+                $myposts = get_posts( $args );
+                if(!empty($myposts)){
+            ?>
 
             <section id="lista-entregas">
                 <div class="container">
@@ -64,13 +98,6 @@
                     </div>
                     <ul class="thumbnails">
                         <?php
-                        $args = array(  'numberposts' => 20,
-                                        'post_type'=>'entrega',
-                                        'orderby'=>'rand',
-                                        'tax_query'=> array ( array (   'taxonomy'=>'tag_atividade',
-                                                                        'field'=>'id',
-                                                                        'terms'=>$tag_atividade_id[0] ))) ;
-                        $myposts = get_posts( $args );
                         foreach( $myposts as $post ) :  setup_postdata($post); ?>
                             <li class="span3">
                                 <div class="thumbnail">
@@ -83,12 +110,12 @@
                         <?php endforeach; ?>
                     </ul>
                 </div>
-            </section> ?>
+            </section>
+            <?php } ?>
 
             <?php
         endwhile;
     endif;
-
     wp_reset_postdata();
 
 get_footer(); ?>
