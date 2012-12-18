@@ -42,22 +42,22 @@ get_header(); ?>
                                 <div class="span4">
                                     <div class="well">
                                         <h2>Reinvente sua lanhouse</h2>
-                                        <p class="lead">Navegue nos episódios e descubra novas estórias com mais atividades e ganhe pontos reinventando sua lanhouse</p>
+                                        <p class="lead">Navegue nos episódios e descubra novas estórias com mais atividades e ganhe pontos reinventando sua lanhouse.</p>
                                         <a href="<?php bloginfo('url'); ?>/episodios/" class="btn">Navegar nos episódios</a>
                                     </div>
                                 </div>
                                 <div class="span4">
                                     <div class="well">
                                         <h2>Colabore com outros jogadores</h2>
-                                        <p class="lead">Conheça outros jogadores e avalie suas atividades votando e enviando sua opnião</p>
+                                        <p class="lead">Conheça outros jogadores e avalie suas atividades votando e enviando sua opnião.</p>
                                         <a href="../colabore-com-outros-jogadores" class="btn">Conhecer outros jogadores</a>
                                     </div>
                                 </div>
                                 <div class="span4">
                                     <div class="well">
-                                        <h2>Participe das corridas</h2>
-                                        <p class="lead">Ganhe prêmios! Saiba como funcionam as corridas, conheça as regras e veja o que fazer para começar a participar</p>
-                                        <a href="../premiacoes" class="btn">Ler a regulamentação</a>
+                                        <h2>Participe dos desafios</h2>
+                                        <p class="lead">Ganhe prêmios! Saiba como funcionam os desafios, conheça as regras e veja como participar.</p>
+                                        <a href="../desafios" class="btn">Ler a regulamentação</a>
                                     </div>
                                 </div>                            
                             </div>
