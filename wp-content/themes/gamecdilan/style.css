@@ -367,15 +367,31 @@ body{
 
 /*Formulário de entrega*/
 
-.frm_forms h3{;
+#formulario.well{
+	background-color: #8ECBEA;
+	border: none; 
+
+	-webkit-box-shadow: none;
+	-moz-box-shadow: none;
+	box-shadow: none;
+}
+#formulario.well label{color: #FFF;}
+
+#formulario.well h3,
+#formulario.well h4,
+#formulario.well h5,
+#formulario.well h6{color: #FFF}
+
+.frm_forms h3{
 	margin-bottom: 5px;
 }
 
-.frm_description{
+#formulario.well .frm_description{
 	font-size: 17px;
 	margin: 0;
 	padding-bottom: 5px;
-	border-bottom: 1px solid #DDD;
+	border-bottom: 1px solid #F5F5F5;
+	color: #FFF;
 }
 
 .frm_form_fields{
@@ -627,6 +643,10 @@ body{
 }
 
 /* Perfil do Jogador*/
+#player{
+	padding-top: 30px;
+}
+
 #player .thumbnail{
 	line-height: 26px;
 	background-color: #FFF; 

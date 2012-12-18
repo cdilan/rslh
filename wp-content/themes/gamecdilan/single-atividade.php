@@ -15,15 +15,18 @@
                             <div class="entry thumbnail" id="texto-inspirador">
                                 <?php the_content(); ?>
                             </div>
+                            
                             <?php if(get_post_meta($post->ID, 'form_atividade', true)) : ?>
-                                <div class="well" id="formulario">
+                                <div class="well well-small" id="formulario">
                                     <?php echo do_shortcode(get_post_meta( $post->ID, 'form_atividade', true )); ?>
                                 </div>
                             <?php endif; ?>
-                            <?php
-                                // pega tag_atividade deste post
-                                $tag_atividade_id = ( wp_get_post_terms($post->ID, 'tag_atividade', array("fields" => "ids")));
 
+                            <?php
+                                global $post;
+                                $tmp_post = $post;
+                                // pega tag_atividade deste post
+                                $tag_atividade_id = (wp_get_post_terms($post->ID, 'tag_atividade', array("fields" => "ids")));
                                 //lista entregas com essa tag_atividade
                                 $args = array(  'numberposts' => 20,
                                                 'post_type'=>'entrega',
@@ -32,7 +35,7 @@
                                                                                 'field'=>'id',
                                                                                 'terms'=>$tag_atividade_id[0] ))) ;
                                 $myposts = get_posts( $args );
-                                if(!empty($myposts)){
+                                if(!empty($myposts)) :
                             ?>
                                 <section id="lista-entregas">
                                     <h3>Jogadores que entregaram essa atividade</h3>
@@ -48,13 +51,16 @@
                                         <?php endforeach; ?>
                                     </ul>
                                 </section>
-                            <?php } ?>
+                            <?php endif; ?>
+                            <?php $post = $tmp_post; ?>
+                            
                             <section id="comentarios">
                                 <div class="container" >
                                     <?php comments_template( '', true ); ?>
                                 </div>
                             </section>
                         </div>
+
                         <aside class="span4">
                             <?php if(get_post_meta($post->ID, 'dicas_atividade', true)) : ?>
                                 <div id="dicas" class="widget">
@@ -64,6 +70,7 @@
                                     </div>
                                 </div>
                             <?php endif; ?>
+                            
                             <?php if(get_post_meta($post->ID, 'sugeridas_atividade', true)) : ?>
                                 <div id="sugeridas" class="widget">
                                     <h3>Atividades sugeridas</h3>
@@ -72,6 +79,7 @@
                                     </div>
                                 </div>
                             <?php endif; ?>
+
                             <?php
                                 $episodio_atividade = wp_get_post_terms($post->ID, 'episodio', array("fields" => "ids"));
                                 $args = array(
@@ -86,7 +94,7 @@
                                         )
                                     );
                                 $episodio_atividade = get_posts( $args );
-                                if(!empty($episodio_atividade)){
+                                if(!empty($episodio_atividade)) :
                             ?>
                             <div class="widget">
                                 <h3>Outras atividades</h3>
@@ -104,7 +112,7 @@
                                     </ul>
                                 </div>
                             </div>
-                            <?php } ?>
+                            <?php endif; ?>
                         </aside>                            
                     </div>
                 </div>
