@@ -449,6 +449,13 @@ body{
 
 }
 
+/*Entrega*/
+
+#entrega.thumbnail{
+	padding: 10px 20px;
+	background-color: #FFF;
+}
+
 /* Lista de jogadores */
 
 #jogador-card .thumbnail{

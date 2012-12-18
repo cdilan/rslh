@@ -36,34 +36,35 @@ get_header(); ?>
                             </div>
                         </div>
                     </section>
+                    <section id="lista-entregas">
+                        <div class="container">
+                            <h3>Atividades realizadas</h3>
+                            <?php
 
-<section id="lista-entregas">
-    <div class="container">
-        <?php
-            $id_do_jogador = $_GET['uid'];
-            if (!$id_do_jogador) {
-                $id_do_jogador = get_current_user_id();
-            }
-            
-            $entregas_do_jogador = $wpdb->get_results(   "
-                                                            SELECT *
-                                                            FROM $wpdb->posts
-                                                            WHERE post_status = 'publish'
-                                                                AND post_author = $id_do_jogador
-                                                            ");
-            if ($entregas_do_jogador) {
-                echo '<ul class="thumbnails">';
-                    foreach ($entregas_do_jogador as $post) {
-                        setup_postdata($post);
-                        ?>
-                            <li class="span3 well">
-                                <a href="<?php the_permalink(); ?>" class="thumbnails">
-                                    <?php the_title(); ?>
-                                </span>
-                            </li>
-                    <?php
-                    } ?>
-                </ul>
-            <?php
-            }
-get_footer(); ?>
+                                $id_do_jogador = $_GET['uid'];
+                                if (!$id_do_jogador) {
+                                    $id_do_jogador = get_current_user_id();
+                                }
+                                $entregas_do_jogador = $wpdb->get_results(   "
+                                                                                SELECT *
+                                                                                FROM $wpdb->posts
+                                                                                WHERE post_status = 'publish'
+                                                                                    AND post_author = $id_do_jogador
+                                                                                    AND post_type = 'entrega'
+                                                                                ");
+                                if ($entregas_do_jogador) {
+                                    echo '<ul class="thumbnails">';
+                                        foreach ($entregas_do_jogador as $post) {
+                                            setup_postdata($post);
+                                            ?>
+                                                <li>
+                                                    <div class="thumbnail">
+                                                        <a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
+                                                    </div>
+                                                </li>
+                                        <?php } ?>
+                                    </ul>
+                                <?php } ?>
+                            </div>
+                        </section>
+<?php get_footer(); ?>

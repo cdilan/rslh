@@ -9,7 +9,6 @@
                     <div class="page-header">
                         <h1><?php the_title(); ?></h1>
                     </div>
-
                     <div class="row">
                         <div class="span8">
                             <div class="entry thumbnail" id="texto-inspirador">
@@ -53,7 +52,7 @@
                                 </section>
                             <?php endif; ?>
                             <?php $post = $tmp_post; ?>
-                            
+
                             <section id="comentarios">
                                 <div class="container" >
                                     <?php comments_template( '', true ); ?>
