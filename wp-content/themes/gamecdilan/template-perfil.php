@@ -37,4 +37,31 @@ get_header(); ?>
                         </div>
                     </section>
 
-<?php get_footer(); ?>
+<section id="lista-entregas">
+    <div class="container">
+        <?php
+            $id_do_jogador = $_GET['uid'];
+
+
+            $entregas_do_jogador = $wpdb->get_results(   "
+                                                            SELECT *
+                                                            FROM $wpdb->posts
+                                                            WHERE post_status = 'publish'
+                                                                AND post_author = $id_do_jogador
+                                                            ");
+            if ($entregas_do_jogador) {
+                echo '<ul class="thumbnails">';
+                    foreach ($entregas_do_jogador as $post) {
+                        setup_postdata($post);
+                        ?>
+                            <li class="span3 well">
+                                <a href="<?php the_permalink(); ?>" class="thumbnails">
+                                    <?php the_title(); ?>
+                                </span>
+                            </li>
+                    <?php
+                    } ?>
+                </ul>
+            <?php
+            }
+get_footer(); ?>
