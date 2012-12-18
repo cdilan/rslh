@@ -17,7 +17,6 @@
 									<h4>Patrocínio</h4>
 									<a href="http://www.iobconcursos.com/" title=""><img src="<?php bloginfo('template_directory'); ?>/img/logos/iob.png" alt="" /></a>
 									<a href="http://www.mercadolivre.com.br/" title=""><img src="<?php bloginfo('template_directory'); ?>/img/logos/mercadolivre.png" alt="" /></a>
-									<a href="#" title=""><img src="<?php bloginfo('template_directory'); ?>/img/logos/dell.png" alt="" /></a>
 								</div>
 							</li>
 							<li class="span4">
@@ -29,7 +28,7 @@
 							</li>
 							<li class="span8">
 								<div class="thumbnail">
-									<h4>Patrocínio</h4>
+									<h4>Parceiros</h4>
 									<a href="http://game.cdilan.com.br/logo-conectalunos-final-2" title=""><img src="<?php bloginfo('template_directory'); ?>/img/logos/conectalunos.png" alt="" /></a>
 									<a href="#" title=""><img src="<?php bloginfo('template_directory'); ?>/img/logos/luz.png" alt="" /></a>
 								</div>
