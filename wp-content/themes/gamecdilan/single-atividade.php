@@ -12,7 +12,7 @@
 
                     <div class="row">
                         <div class="span8">
-                            <div class="entry" id="texto-inspirador">
+                            <div class="entry thumbnail" id="texto-inspirador">
                                 <?php the_content(); ?>
                             </div>
                             <?php if(get_post_meta($post->ID, 'form_atividade', true)) : ?>

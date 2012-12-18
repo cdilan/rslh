@@ -34,7 +34,7 @@ body{
 /*Áreas principais*/
 
 #site-content{
-	padding: 70px 0 50px;
+	padding: 50px 0;
 	background: white url('img/bg.gif') repeat;
 }
 
@@ -86,7 +86,7 @@ body{
 }
 
 #home img{
-	margin-top: -70px 
+	margin-top: -50px 
 }
 
 #home .lead{
@@ -135,7 +135,7 @@ body{
 }
 
 #episodios .thumbnail{
-	height: 450px;
+	height: 310px;
 	background-color: #FFF;
 }
 
@@ -155,10 +155,11 @@ body{
 	display: block;
 	text-indent: -9999px; 
 	position: relative;
-	top: -250px;
+	top: -200px;
 	height: 50px;
 	width: 30px;
-	background: url('img/boxslider-arrow.gif') no-repeat 0 0; 
+	background: url('img/boxslider-arrow.gif') no-repeat 0 0;
+	overflow: hidden;
 }
 
 #lista-episodios .bx-prev{
@@ -244,6 +245,18 @@ body{
 	float: right; 
 }
 
+/*Atividade*/
+
+
+.page-header{
+	border: none;
+	margin-bottom: 10px;
+}
+#texto-inspirador.thumbnail{
+	padding: 5px 20px;
+	background-color: #FFF;
+	margin-bottom: 20px;
+}
 
 /**/
 
