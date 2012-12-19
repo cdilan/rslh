@@ -737,3 +737,9 @@ body{
 	    text-shadow: 0 -1px 0 rgba(255, 255, 255, 0.25);
 
 }
+
+/* volta cor preta para Hs no modal */
+#formulario .modal h3,
+#formulario .modal h4,
+#formulario .modal h5,
+#formulario .modal h6{color: #000}
