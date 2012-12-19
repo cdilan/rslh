@@ -19,9 +19,6 @@ get_header(); ?>
                     ?>
                         <li>
                             <div class="thumbnail">
-                                <a href="<?php echo get_term_link($term->slug, 'episodio'); ?>">
-                                    <img src="<?php echo z_taxonomy_image_url($term->term_id); ?>" />
-                                </a>
                                 <h2><?php echo $term->name; ?></h2>
                                 <p>
                                     <strong><?php echo $term->count; ?> Atividades</strong>
