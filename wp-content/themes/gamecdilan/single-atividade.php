@@ -5,6 +5,7 @@
         while (have_posts()) : the_post(); ?>
 
             <section id="atividade">
+                <a name="topo"></a>
                 <div class="container">
                     <div class="page-header">
                         <h1><?php the_title(); ?></h1>
@@ -54,6 +55,7 @@
                             <?php endif; ?>
                             <?php $post = $tmp_post; ?>
 
+                            <a name="comentarios"></a>
                             <section id="comentarios">
                                 <div class="container" >
                                     <?php comments_template( '', true ); ?>

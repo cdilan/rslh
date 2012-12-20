@@ -45,6 +45,7 @@
                                     <?php endif; ?>
                                     <?php $post = $tmp_post; ?>
 
+                                    <a name="comentarios"></a>
                                     <section id="comentarios">
                                         <?php comments_template( '', true ); ?>
                                     </section>
