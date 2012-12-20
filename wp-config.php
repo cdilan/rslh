@@ -19,10 +19,10 @@
 define('DB_NAME', 'rslh');
 
 /** MySQL database username */
-define('DB_USER', 'webmaster');
+define('DB_USER', 'root');
 
 /** MySQL database password */
-define('DB_PASSWORD', 'Cdilan10');
+define('DB_PASSWORD', 'vertrigo');
 
 /** MySQL hostname */
 define('DB_HOST', 'localhost');
