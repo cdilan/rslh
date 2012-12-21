@@ -6,7 +6,6 @@
 
 require_once(TEMPLATEPATH . '/cms/custom.php');
 
-
 /***************************************************
 #Carregando Shortcodes
 ***************************************************/
@@ -73,6 +72,11 @@ if ( function_exists( 'register_nav_menu' ) ) {
             'footermenu' => 'Menu no rodapé'
         )
     );
+}
+
+//show admin bar only for admins
+if (!current_user_can('manage_options')) {
+	add_filter('show_admin_bar', '__return_false');
 }
 
 /********************************************************************
