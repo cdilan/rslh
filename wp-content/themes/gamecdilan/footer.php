@@ -1,6 +1,6 @@
-			
+
 			</section>
-			
+
 			<footer id="site-footer">
 				<div class="container">
 
@@ -37,7 +37,7 @@
 										<a href="http://game.cdilan.com.br/logo-conectalunos-final-2" target="_blank"><img src="<?php bloginfo('template_directory'); ?>/img/logos/conectalunos.png" /></a>
 										<a href="#" target="_blank"><img src="<?php bloginfo('template_directory'); ?>/img/logos/luz.png" /></a>
 									</div>
-								</li>							
+								</li>
 						</section>
 
 					<?php } ?>
@@ -46,7 +46,7 @@
 						<ul class="nav nav-pills pull-right">
 							<?php wp_nav_menu(array('theme_location' => 'footermenu', 'container' => false, 'items_wrap' => '%3$s', 'menu_id' => 'top-nav')); ?>
 			                <?php if(is_user_logged_in()) : ?>
-			                    <li class="logout"><a href="<?php echo wp_logout_url(); ?>" title="Logout" class=>Logout</a></li>
+			                    <li class="logout"><a href="<?php echo wp_logout_url(); ?>" title="Logout" class=>Sair</a></li>
 			                <?php endif; ?>
 			            </ul>
 			        </section>
