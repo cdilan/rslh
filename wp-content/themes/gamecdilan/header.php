@@ -50,7 +50,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </a>
-                    <?php if(is_page(12)){ ?>
+                    <?php if(is_page(12) || is_single('56')){ ?>
                         <span class="brand"><?php bloginfo('name') ?></span>
                     <?php } else { ?>
                         <a class="brand" href="<?php bloginfo('url'); ?>"><?php bloginfo('name') ?></a>
@@ -69,7 +69,6 @@
         </header>
         
         <section id="site-content">
-
             <?php if(!is_front_page() && function_exists('bcn_display')) : ?>
                 <section id="breadcrumbs">
                     <div class="container">

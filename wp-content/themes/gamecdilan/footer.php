@@ -3,37 +3,44 @@
 			
 			<footer id="site-footer">
 				<div class="container">
-					<section id="footer-partner">
-						<ul class="thumbnails">
-							<li class="span4">
-								<div class="thumbnail">
-									<h4>Realização</h4>
-									<a href="http://www.cdi.org.br/" title=""><img src="<?php bloginfo('template_directory'); ?>/img/logos/cdilan.png" alt="" /></a>
-									<a href="http://www.cdilan.com.br/" title=""><img src="<?php bloginfo('template_directory'); ?>/img/logos/cdi.png" alt="" /></a>
-								</div>
-							</li>
-							<li class="span8">
-								<div class="thumbnail">
-									<h4>Patrocínio</h4>
-									<a href="http://www.iobconcursos.com/" title=""><img src="<?php bloginfo('template_directory'); ?>/img/logos/iob.png" alt="" /></a>
-									<a href="http://www.mercadolivre.com.br/" title=""><img src="<?php bloginfo('template_directory'); ?>/img/logos/mercadolivre.png" alt="" /></a>
-								</div>
-							</li>
-							<li class="span4">
-								<div class="thumbnail">
-									<h4>Apoio</h4>
-									<a href="#" title=""><img src="<?php bloginfo('template_directory'); ?>/img/logos/aacid.png" alt="" /></a>
-									<a href="#" title=""><img src="<?php bloginfo('template_directory'); ?>/img/logos/safernet.png" alt="" /></a>
-								</div>
-							</li>
-							<li class="span8">
-								<div class="thumbnail">
-									<h4>Parceiros</h4>
-									<a href="http://game.cdilan.com.br/logo-conectalunos-final-2" title=""><img src="<?php bloginfo('template_directory'); ?>/img/logos/conectalunos.png" alt="" /></a>
-									<a href="#" title=""><img src="<?php bloginfo('template_directory'); ?>/img/logos/luz.png" alt="" /></a>
-								</div>
-							</li>							
-					</section>
+
+					<?php if(is_page(12) || is_single('56')){ ?>
+
+					<?php } else { ?>
+
+						<section id="footer-partner">
+							<ul class="thumbnails">
+								<li class="span4">
+									<div class="thumbnail">
+										<h4>Realização</h4>
+										<a href="http://www.cdi.org.br/" target="_blank"><img src="<?php bloginfo('template_directory'); ?>/img/logos/cdilan.png" /></a>
+										<a href="http://www.cdilan.com.br/" target="_blank"><img src="<?php bloginfo('template_directory'); ?>/img/logos/cdi.png" /></a>
+									</div>
+								</li>
+								<li class="span8">
+									<div class="thumbnail">
+										<h4>Patrocínio</h4>
+										<a href="http://www.iobconcursos.com/" target="_blank"><img src="<?php bloginfo('template_directory'); ?>/img/logos/iob.png" /></a>
+										<a href="http://www.mercadolivre.com.br/" target="_blank"><img src="<?php bloginfo('template_directory'); ?>/img/logos/mercadolivre.png" /></a>
+									</div>
+								</li>
+								<li class="span4">
+									<div class="thumbnail">
+										<h4>Apoio</h4>
+										<a href="#" target="_blank"><img src="<?php bloginfo('template_directory'); ?>/img/logos/aacid.png" /></a>
+										<a href="#" target="_blank"><img src="<?php bloginfo('template_directory'); ?>/img/logos/safernet.png" /></a>
+									</div>
+								</li>
+								<li class="span8">
+									<div class="thumbnail">
+										<h4>Parceiros</h4>
+										<a href="http://game.cdilan.com.br/logo-conectalunos-final-2" target="_blank"><img src="<?php bloginfo('template_directory'); ?>/img/logos/conectalunos.png" /></a>
+										<a href="#" target="_blank"><img src="<?php bloginfo('template_directory'); ?>/img/logos/luz.png" /></a>
+									</div>
+								</li>							
+						</section>
+
+					<?php } ?>
 
 					<section id="footer-menu">
 						<ul class="nav nav-pills pull-right">
