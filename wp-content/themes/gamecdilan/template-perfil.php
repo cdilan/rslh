@@ -8,7 +8,7 @@ get_header(); ?>
                             <div class="row">
                                 <?php if (have_posts()) : ?>
                                     <?php while (have_posts()) : the_post(); ?>                            
-                                        <div class="span8">
+                                        <div class="span8 offset2">
                                             <?php the_content(); ?>
                                         </div>
                                     <?php endwhile; ?>
@@ -36,34 +36,41 @@ get_header(); ?>
                             </div>
                         </div>
                     </section>
-                    <section id="lista-entregas">
-                        <div class="container">
-                            <h3>Atividades realizadas</h3>
-                            <?php
-                                $id_do_jogador = $_GET['uid'];
-                                if (!$id_do_jogador) {
-                                    $id_do_jogador = get_current_user_id();
-                                }
-                                $entregas_do_jogador = $wpdb->get_results(   "
-                                                                                SELECT *
-                                                                                FROM $wpdb->posts
-                                                                                WHERE post_status = 'publish'
-                                                                                    AND post_author = $id_do_jogador
-                                                                                    AND post_type = 'entrega'
-                                                                                ");
-                                if ($entregas_do_jogador) {
-                                    echo '<ul class="thumbnails">';
-                                        foreach ($entregas_do_jogador as $post) {
-                                            setup_postdata($post);
-                                            ?>
-                                                <li>
-                                                    <div class="thumbnail">
-                                                        <a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
-                                                    </div>
-                                                </li>
-                                        <?php } ?>
-                                    </ul>
-                                <?php } ?>
-                            </div>
-                        </section>
+
+                    <?php
+                        $id_do_jogador = $_GET['uid'];
+                        if (!$id_do_jogador) {
+                            $id_do_jogador = get_current_user_id();
+                        }
+                        $entregas_do_jogador = $wpdb->get_results(   "
+                                                                        SELECT *
+                                                                        FROM $wpdb->posts
+                                                                        WHERE post_status = 'publish'
+                                                                            AND post_author = $id_do_jogador
+                                                                            AND post_type = 'entrega'
+                                                                        ");
+                        if ($entregas_do_jogador) { ?>
+
+                            <section id="lista-entregas">
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="span8 offset2">
+                                            <h3>Atividades realizadas</h3>
+                                            <ul class="thumbnails">
+                                                <?php foreach ($entregas_do_jogador as $post) {
+                                                    setup_postdata($post);
+                                                    ?>
+                                                        <li>
+                                                            <div class="thumbnail">
+                                                                <a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
+                                                            </div>
+                                                        </li>
+                                                <?php } ?>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+
+                            <?php } ?>
 <?php get_footer(); ?>
