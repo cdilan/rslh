@@ -16,8 +16,7 @@
                             </div>
                             
                             <?php if(get_post_meta($post->ID, 'form_atividade', true)) : ?>
-                                <h3>Entrega desta atividade</h3>
-                                <div class="well well-small" id="formulario">
+                                <div class="alert alert-info" id="formulario">
                                     <?php echo do_shortcode(get_post_meta( $post->ID, 'form_atividade', true )); ?>
                                 </div>
                             <?php endif; ?>
