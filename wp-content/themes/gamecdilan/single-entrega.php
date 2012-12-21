@@ -16,7 +16,7 @@
                                         global $post;
                                         $tmp_post = $post;
                                         $tag_atividade_id = wp_get_post_terms($post->ID, 'tag_atividade', array("fields" => "ids"));
-                                        $args = array(  'numberposts' => 20,
+                                        $args = array(  'numberposts' => 8,
                                                         'post_type'=>'entrega',
                                                         'orderby'=>'rand',
                                                         'tax_query'=> array ( array (   'taxonomy'=>'tag_atividade',
@@ -42,6 +42,7 @@
                                     <?php endif; ?>
                                     <?php $post = $tmp_post; ?>
                                     <section id="comentarios">
+                                        <?php wp_reset_query(); ?>
                                         <?php comments_template( '', true ); ?>
                                     </section>
                                 </div>
