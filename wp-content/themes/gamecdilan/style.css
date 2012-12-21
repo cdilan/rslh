@@ -456,6 +456,35 @@ body{
 	background-color: #FFF;
 }
 
+#entrega-jogador.well{
+	overflow: hidden;
+}
+
+#entrega-jogador img.avatar{
+	float: left;
+	margin-right: 5px;
+}
+
+#entrega-jogador h3{
+	margin: 0 0 8px;
+	font-size: 20px;
+	line-height: 120%;
+}
+
+#entrega-jogador h4{
+	font-size: 15px;
+	margin: 0;
+	line-height: 120%;
+}
+
+#btn-atividade{
+	margin: 25px 0 20px;
+}
+
+#btn-atividade a{
+	display: block;
+}
+
 /* Lista de jogadores */
 
 #jogador-card .thumbnail{
@@ -743,3 +772,7 @@ body{
 #formulario .modal h4,
 #formulario .modal h5,
 #formulario .modal h6{color: #000}
+
+.postid-56 .nav{
+	display: none;
+}

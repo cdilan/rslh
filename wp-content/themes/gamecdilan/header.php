@@ -50,9 +50,10 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </a>
-
-                    <a class="brand" href="<?php bloginfo('url'); ?>"><?php bloginfo('name') ?></a>
-
+                    <?php if(is_page(12)){ ?>
+                        <span class="brand"><?php bloginfo('name') ?></span>
+                    <?php } else { ?>
+                        <a class="brand" href="<?php bloginfo('url'); ?>"><?php bloginfo('name') ?></a>
                     <!-- Everything you want hidden at 940px or less, place within here -->
                     <div class="nav-collapse">
                         <ul class="nav">                        
@@ -62,6 +63,7 @@
                             <?php endif; ?>
                         </ul>
                     </div>
+                    <?php } ?>
                 </div>
             </div>
         </header>
