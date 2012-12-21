@@ -1,6 +1,10 @@
 <?php get_header(); ?>
 
 <?php
+	//PEGADA - Sistema para salvar o rastro, quando o jogador visita a página salva no banco de dados
+	$insereDados = update_user_meta(get_current_user_id(),$post->ID, "visited");
+	//echo $insereDados;
+	//
     if (have_posts()) :
         while (have_posts()) : the_post(); ?>
 
