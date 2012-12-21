@@ -108,7 +108,7 @@ body{
 }
 
 #home-links .lead{
-	height: 130px;
+	min-height: 140px;
 	font-size: 17px;
 }
 
@@ -367,7 +367,7 @@ body{
 
 /*Formulário de entrega*/
 
-#formulario.well{
+/*#formulario.well{
 	background-color: #8ECBEA;
 	border: none; 
 
@@ -375,7 +375,6 @@ body{
 	-moz-box-shadow: none;
 	box-shadow: none;
 }
-
 #formulario.well label{color: #FFF;}
 
 #formulario.well h3,
@@ -393,7 +392,7 @@ body{
 	padding-bottom: 5px;
 	border-bottom: 1px solid #F5F5F5;
 	color: #FFF;
-}
+}*/
 
 .frm_form_fields{
 	padding-top: 15px;
@@ -403,6 +402,12 @@ body{
 	font-size: 12px;
 	color: gray;
 	margin-top: -10px;
+}
+
+.frm_forms input.text,
+.frm_forms input.tel,
+.frm_forms input.email{
+	text-indent: 2px !important;
 }
 
 .frm_radio{
@@ -415,13 +420,6 @@ body{
 
 .frm_fourth select{
 	width: 80%;
-}
-
-.frm_forms input.text,
-.frm_forms input.tel,
-.frm_forms input.email{
-	padding: 5px 0;
-	text-indent: 10px;
 }
 
 .frm_error{
@@ -437,10 +435,30 @@ body{
     border-radius: 4px;	
 }
 
-#formulario.well .modal h3,
-#formulario.well .modal h4,
-#formulario.well .modal h5,
-#formulario.well .modal h6{color: #000}
+.searchsubmit{
+	margin-top: -10px;
+}
+
+select,
+textarea,
+input[type="text"],
+input[type="password"],
+input[type="datetime"],
+input[type="datetime-local"],
+input[type="date"],
+input[type="month"],
+input[type="time"],
+input[type="week"],
+input[type="number"],
+input[type="email"],
+input[type="url"],
+input[type="search"],
+input[type="tel"],
+input[type="color"],
+.uneditable-input{
+	height: auto;
+	line-height: 100%;
+}
 
 /*lista-entregas*/
 
@@ -452,6 +470,7 @@ body{
 #lista-entregas .thumbnail h5{
 	font-size: 13px;
 	margin: 5px 0 0;
+
 }
 
 /*Entrega*/
@@ -533,7 +552,7 @@ body{
 .entry p{margin: 15px 0;}
 
 .entry strong{
-    font-weight: 500;
+    font-weight: 600;
 }
 
 .entry .thumbnail{
@@ -768,7 +787,7 @@ body{
 	color: #000000;
 	text-decoration: none;
 	background-color: orange;
-	    text-shadow: 0 -1px 0 rgba(255, 255, 255, 0.25);
+	text-shadow: 0 -1px 0 rgba(255, 255, 255, 0.25);
 
 }
 
@@ -780,4 +799,18 @@ body{
 
 .postid-56 .nav{
 	display: none;
+}
+
+/*termo de uso*/
+.termo-de-uso{
+	border: 1px solid #DDD;
+	background-color: #FFF;
+	padding: 20px;
+	overflow: auto;
+	position: relative;
+	height: 250px;
+
+	-webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
 }
