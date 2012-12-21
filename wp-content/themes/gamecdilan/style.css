@@ -375,6 +375,7 @@ body{
 	-moz-box-shadow: none;
 	box-shadow: none;
 }
+
 #formulario.well label{color: #FFF;}
 
 #formulario.well h3,
@@ -436,6 +437,11 @@ body{
     border-radius: 4px;	
 }
 
+#formulario.well .modal h3,
+#formulario.well .modal h4,
+#formulario.well .modal h5,
+#formulario.well .modal h6{color: #000}
+
 /*lista-entregas*/
 
 #lista-entregas .thumbnail{
@@ -446,7 +452,6 @@ body{
 #lista-entregas .thumbnail h5{
 	font-size: 13px;
 	margin: 5px 0 0;
-
 }
 
 /*Entrega*/

@@ -13,7 +13,7 @@ get_header(); ?>
                                         </div>
                                     <?php endwhile; ?>
                                 <?php endif; ?>
-                                <aside id="sidebar" class="span4">
+                                <!-- <aside id="sidebar" class="span4">
                                     <div class="widget">
                                         <h3>Titulo do sidebar</h3>
                                         <div class="well">
@@ -32,7 +32,7 @@ get_header(); ?>
                                             <p>Algum conteúdo relacionado ao perfil</p>
                                         </div>
                                     </div>
-                                </aside>
+                                </aside> -->
                             </div>
                         </div>
                     </section>
@@ -40,7 +40,6 @@ get_header(); ?>
                         <div class="container">
                             <h3>Atividades realizadas</h3>
                             <?php
-
                                 $id_do_jogador = $_GET['uid'];
                                 if (!$id_do_jogador) {
                                     $id_do_jogador = get_current_user_id();
