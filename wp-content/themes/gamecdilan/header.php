@@ -78,3 +78,10 @@
                     </div>
                 </section>
             <?php endif; ?>
+            <?php if(!is_front_page()) :?>
+                    <section id="stick-feedback">
+                        <div class="stick-comentario">
+                            <h5><center><a href="#comentarios">Comentários</a></center></h5>
+                        </div>
+                    </section>
+            <?php endif; ?>
