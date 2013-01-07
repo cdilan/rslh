@@ -26,7 +26,7 @@
         if ( $paged >= 2 || $page >= 2 )
             echo ' | ' . sprintf('Página %s', max( $paged, $page ) );
         ?></title>
-        
+
         <meta name="viewport" content="width=device-width">
 
         <link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>" />
@@ -56,10 +56,10 @@
                         <a class="brand" href="<?php bloginfo('url'); ?>"><?php bloginfo('name') ?></a>
                     <!-- Everything you want hidden at 940px or less, place within here -->
                     <div class="nav-collapse">
-                        <ul class="nav">                        
+                        <ul class="nav">
                             <?php wp_nav_menu(array('theme_location' => 'topmenu', 'container' => false, 'items_wrap' => '%3$s', 'menu_id' => 'top-nav', 'walker' => new Bootstrap_Walker_Nav_Menu())); ?>
                             <?php if(is_user_logged_in()) : ?>
-                                <li class="logout"><a href="<?php echo wp_logout_url(home_url()); ?>" title="Logout" class=>Logout</a></li>
+                                <li class="logout"><a href="<?php echo wp_logout_url(home_url()); ?>" title="Logout" class=>Sair</a></li>
                             <?php endif; ?>
                         </ul>
                     </div>
@@ -67,7 +67,7 @@
                 </div>
             </div>
         </header>
-        
+
         <section id="site-content">
             <?php if(!is_front_page() && function_exists('bcn_display')) : ?>
                 <section id="breadcrumbs">
