@@ -24,14 +24,7 @@
 										<a href="http://www.mercadolivre.com.br/" target="_blank"><img src="<?php bloginfo('template_directory'); ?>/img/logos/mercadolivre.png" /></a>
 									</div>
 								</li>
-								<li class="span4">
-									<div class="thumbnail">
-										<h4>Apoio</h4>
-										<a href="#" target="_blank"><img src="<?php bloginfo('template_directory'); ?>/img/logos/aacid.png" /></a>
-										<a href="#" target="_blank"><img src="<?php bloginfo('template_directory'); ?>/img/logos/safernet.png" /></a>
-									</div>
-								</li>
-								<li class="span8">
+								<li class="span12">
 									<div class="thumbnail">
 										<h4>Parceiros</h4>
 										<a href="http://game.cdilan.com.br/logo-conectalunos-final-2" target="_blank"><img src="<?php bloginfo('template_directory'); ?>/img/logos/conectalunos.png" /></a>
