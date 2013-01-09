@@ -2,8 +2,13 @@
 
 <?php
 	//PEGADA - Sistema para salvar o rastro, quando o jogador visita a página salva no banco de dados
+    //Checa se já foi completada, para não alterar tarefa completada para visitada
+    $iscompleted = get_user_meta(get_current_user_id(),$post->ID);
+    //Somente altera para visita se não estiver completada
+    if($iscompleted[0]!="completed")
 	$insereDados = update_user_meta(get_current_user_id(),$post->ID, "visited");
-	//echo $insereDados;
+    //Tipo de cookie para salver a última página visitada pelo jogador, como o formidable não passa o ID do post e o WordPress não salve cookie
+    update_user_meta(get_current_user_id(),"last_visited",$post->ID);
 	//
     if (have_posts()) :
         while (have_posts()) : the_post(); ?>
