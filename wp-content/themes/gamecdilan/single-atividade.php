@@ -72,7 +72,7 @@
                         <aside class="span4">
                             <?php if(get_post_meta($post->ID, 'sugeridas_atividade', true)) : ?>
                                 <div id="sugeridas" class="widget">
-                                    <h3>Como fazer</h3>
+                                    <h3>Onde fazer</h3>
                                     <div class="well">
                                         <?php echo do_shortcode(get_post_meta( $post->ID, 'sugeridas_atividade', true )); ?>
                                     </div>
