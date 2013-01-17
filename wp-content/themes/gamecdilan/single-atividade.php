@@ -70,20 +70,20 @@
                         </div>
 
                         <aside class="span4">
+                            <?php if(get_post_meta($post->ID, 'sugeridas_atividade', true)) : ?>
+                                <div id="sugeridas" class="widget">
+                                    <h3>Como fazer</h3>
+                                    <div class="well">
+                                        <?php echo do_shortcode(get_post_meta( $post->ID, 'sugeridas_atividade', true )); ?>
+                                    </div>
+                                </div>
+                            <?php endif; ?>
+
                             <?php if(get_post_meta($post->ID, 'dicas_atividade', true)) : ?>
                                 <div id="dicas" class="widget">
                                     <h3>Dicas</h3>
                                     <div class="well">
                                         <?php echo do_shortcode(get_post_meta( $post->ID, 'dicas_atividade', true )); ?>
-                                    </div>
-                                </div>
-                            <?php endif; ?>
-                            
-                            <?php if(get_post_meta($post->ID, 'sugeridas_atividade', true)) : ?>
-                                <div id="sugeridas" class="widget">
-                                    <h3>Atividades sugeridas</h3>
-                                    <div class="well">
-                                        <?php echo do_shortcode(get_post_meta( $post->ID, 'sugeridas_atividade', true )); ?>
                                     </div>
                                 </div>
                             <?php endif; ?>
