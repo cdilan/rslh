@@ -54,3 +54,12 @@ Erros Inesperados
 Se no GIT client, antes mesmo de você fazer qualquer alteração, tiver arquivos para comitar, descarte-os.<br />
 A conexão via FACEBOOK não funciona no local host<br/>
 Alguns formulários do Formidable perdem configurações de Custom Display e Mensagens de Email, se a programação envolver o Formidable, por favor atualize seu localhost pelo DEV.cdilan.com.br<br/>
+
+
+instalação linux
+=========
+<ol>
+    <li>instale os pacotes do github<br />
+        <i>adicione um pacote de interface gráfica chamado git-cola</i></li>
+    <li>baixe o zip do arquivo</li>
+</ol>
