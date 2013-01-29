@@ -59,6 +59,9 @@ Alguns formulários do Formidable perdem configurações de Custom Display e Men
 instalação linux
 =========
 <ol>
+    <li>instale e inicie o xampp<br />
+        <i>sudo /opt/lampp/lampp start</i>
+    </li>
     <li>instale os pacotes do github<br />
         <i>adicione um pacote de interface gráfica chamado git-cola</i></li>
     <li>baixe o zip do arquivo</li>
