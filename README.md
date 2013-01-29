@@ -3,7 +3,7 @@ rslh
 
 Reinvente sua Lan House
 
-instalação
+instalação windows ou mac
 =========
 <ol>
     <li>configure o 'default sotrage directory' do seu GIT Client para a raiz do seu localhost<br />
