@@ -1,697 +1,0 @@
-[1mdiff --git a/wp-content/plugins/cubepoints/cp_hooks.php b/wp-content/plugins/cubepoints/cp_hooks.php[m
-[1mindex b9f8738..1a5768b 100644[m
-[1m--- a/wp-content/plugins/cubepoints/cp_hooks.php[m
-[1m+++ b/wp-content/plugins/cubepoints/cp_hooks.php[m
-[36m@@ -1,346 +1,344 @@[m
-[31m-<?php[m
-[31m-/**[m
-[31m- * CubePoints plugin hooks and filters[m
-[31m- */[m
-[31m-[m
-[31m- /** Misc logs hook */[m
-[31m-add_action('cp_logs_description','cp_admin_logs_desc_misc', 10, 4);[m
-[31m-function cp_admin_logs_desc_misc($type,$uid,$points,$data){[m
-[31m-	if($type!='misc') { return; }[m
-[31m-	echo $data;[m
-[31m-}[m
-[31m-[m
-[31m- /** Add Points logs hook */[m
-[31m-add_action('cp_logs_description','cp_admin_logs_desc_addpoints', 10, 4);[m
-[31m-function cp_admin_logs_desc_addpoints($type,$uid,$points,$data){[m
-[31m-	if($type!='addpoints') { return; }[m
-[31m-	echo $data;[m
-[31m-}[m
-[31m- [m
-[31m-/** Comments hook */[m
-[31m-add_action('comment_post', 'cp_newComment', 10 ,2);[m
-[31m-function cp_newComment($cid, $status) {[m
-[31m-	$cdata = get_comment($cid);[m
-[31m-	if($status == 1){[m
-[31m-		do_action('cp_comment_add', $cid);[m
-[31m-		cp_points('comment', cp_currentUser(), apply_filters('cp_comment_points',get_option('cp_comment_points')), $cid);[m
-[31m-	}[m
-[31m-}[m
-[31m-[m
-[31m-/** Comment approved hook */[m
-[31m-add_action('comment_unapproved_to_approved', 'cp_commentApprove', 10, 1);[m
-[31m-add_action('comment_trash_to_approved', 'cp_commentApprove', 10, 1);[m
-[31m-add_action('comment_spam_to_approved', 'cp_commentApprove', 10, 1);[m
-[31m-function cp_commentApprove($cdata){[m
-[31m-	do_action('cp_comment_add', $cdata->comment_ID);[m
-[31m-	cp_points('comment', $cdata->user_id, apply_filters('cp_comment_points',get_option('cp_comment_points')), $cdata->comment_ID);[m
-[31m-}[m
-[31m-[m
-[31m-/** Comment unapproved hook */[m
-[31m-add_action('comment_approved_to_unapproved', 'cp_commentUnapprove', 10, 1);[m
-[31m-add_action('comment_approved_to_trash', 'cp_commentUnapprove', 10, 1);[m
-[31m-add_action('comment_approved_to_spam', 'cp_commentUnapprove', 10, 1);[m
-[31m-function cp_commentUnapprove($cdata){[m
-[31m-	// check if points were indeed awarded for this comment[m
-[31m-	global $wpdb;[m
-[31m-	if($wpdb->get_var('SELECT COUNT(*) FROM ' . CP_DB . ' WHERE type = \'comment\' AND data = ' . $cdata->comment_ID)==0){[m
-[31m-		return;[m
-[31m-	}[m
-[31m-	do_action('cp_comment_remove', $cdata->comment_ID);[m
-[31m-	cp_points('comment_remove', $cdata->user_id, apply_filters('cp_del_comment_points',-get_option('cp_del_comment_points')), $cdata->comment_ID);[m
-[31m-}[m
-[31m-[m
-[31m-/** Comments logs hook */[m
-[31m-add_action('cp_logs_description','cp_admin_logs_desc_comment', 10, 4);[m
-[31m-function cp_admin_logs_desc_comment($type,$uid,$points,$data){[m
-[31m-	if($type!='comment') { return; }[m
-[31m-	$cdata = get_comment($data);[m
-[31m-	if($cdata==null){ echo '<span title="'.__('Comment removed', 'cp').'...">'.__('Comment', 'cp').'</span>'; return; }[m
-[31m-	$pid = $cdata->comment_post_ID;[m
-[31m-	$pdata = get_post($pid);[m
-[31m-	$ptitle = $pdata->post_title;[m
-[31m-	$url = get_permalink( $pid ) . '#comment-' . $data;[m
-[31m-	$detail = __('Comment', 'cp').': '.cp_truncate(strip_tags($cdata->comment_content), 100, false);[m
-[31m-	echo '<span title="'.$detail.'">'.__('Comment on', 'cp').' &quot;<a href="'.$url.'">'.$ptitle.'</a>&quot;</span>';[m
-[31m-}[m
-[31m-[m
-[31m-/** Comments removal logs hook */[m
-[31m-add_action('cp_logs_description','cp_admin_logs_desc_comment_remove', 10, 4);[m
-[31m-function cp_admin_logs_desc_comment_remove($type,$uid,$points,$data){[m
-[31m-	if($type!='comment_remove') { return; }[m
-[31m-	_e('Comment Deletion', 'cp');[m
-[31m-}[m
-[31m-[m
-[31m-/** Post hook */[m
-[31m-add_action('publish_post', 'cp_newPost');[m
-[31m-function cp_newPost($pid) {[m
-[31m-	$post = get_post($pid);[m
-[31m-	$uid = $post->post_author;[m
-[31m-	global $wpdb;[m
-[31m-	$count = (int) $wpdb->get_var("select count(id) from `".CP_DB."` where `type`='post' and `data`=". $pid);[m
-[31m-	if($count==0){[m
-[31m-		cp_points('post', $uid, apply_filters('cp_post_points',get_option('cp_post_points')), $pid);[m
-[31m-	}[m
-[31m-}[m
-[31m-[m
-[31m-/** Post logs hook */[m
-[31m-add_action('cp_logs_description','cp_admin_logs_desc_post', 10, 4);[m
-[31m-function cp_admin_logs_desc_post($type,$uid,$points,$data){[m
-[31m-	if($type!='post') { return; }[m
-[31m-	$post = get_post($data);[m
-[31m-	echo __('Post on', 'cp') . ' "<a href="'.get_permalink( $post ).'">' . $post->post_title . '</a>"';[m
-[31m-}[m
-[31m-[m
-[31m-/** User registration hook */[m
-[31m-add_action('user_register', 'cp_newUser');[m
-[31m-function cp_newUser($uid) {[m
-[31m-	cp_points('register', $uid, apply_filters('cp_reg_points',get_option('cp_reg_points')), $uid);[m
-[31m-}[m
-[31m-[m
-[31m-/** User registration logs hook */[m
-[31m-add_action('cp_logs_description','cp_admin_logs_desc_register', 10, 4);[m
-[31m-function cp_admin_logs_desc_register($type,$uid,$points,$data){[m
-[31m-	if($type!='register') { return; }[m
-[31m-	_e('Registration', 'cp');[m
-[31m-}[m
-[31m-[m
-[31m-/** Admin manage logs hook */[m
-[31m-add_action('cp_logs_description','cp_admin_logs_desc_admin', 10, 4);[m
-[31m-function cp_admin_logs_desc_admin($type,$uid,$points,$data){[m
-[31m-	if($type!='admin') { return; }[m
-[31m-	$user = get_userdata($data);[m
-[31m-	echo __('Points adjusted by ', 'cp') . ' "' .  $user->user_login . '"';[m
-[31m-}[m
-[31m-[m
-[31m-/** Remote site logs hook */[m
-[31m-add_action('cp_logs_description','cp_admin_logs_desc_remote', 10, 4);[m
-[31m-function cp_admin_logs_desc_remote($type,$uid,$points,$data){[m
-[31m-	if($type!='remote') { return; }[m
-[31m-	list($name,$url) = explode('^', $data);[m
-[31m-	echo __('Points earned from ') . ' "<a href="'.$url.'">' . $name . '</a>"';[m
-[31m-}[m
-[31m-[m
-[31m-/** Custom logs hook */[m
-[31m-add_action('cp_logs_description','cp_admin_logs_desc_custom', 10, 4);[m
-[31m-function cp_admin_logs_desc_custom($type,$uid,$points,$data){[m
-[31m-	if($type!='custom') { return; }[m
-[31m-	echo $data;[m
-[31m-}[m
-[31m-[m
-[31m-/** Display top users in page */[m
-[31m-add_shortcode('cubepoints_top','cp_shortcode_top');[m
-[31m-function cp_shortcode_top( $atts ){[m
-[31m-	$num = (int) $atts['num'];[m
-[31m-	if($num<1){$num=1;}[m
-[31m-	$top = cp_getAllPoints($num,get_option('cp_topfilter'));[m
-[31m-	if($atts['class']!=''){$class = ' class="'.$atts['class'].'"';}[m
-[31m-	if($atts['style']!=''){$style = ' style="'.$atts['style'].'"';}[m
-[31m-	switch ($atts['display']) {[m
-[31m-    case 'custom':[m
-[31m-        if($atts['custom'] == null) {[m
-[31m-			$atts['custom'] = '%user% (%points%)';[m
-[31m-		}[m
-[31m-		foreach($top as $x=>$i) {[m
-[31m-			$text = apply_filters('cp_displayUserInfo',$atts['custom'],$i,$x+1);[m
-[31m-			$c .= $text;[m
-[31m-		}[m
-[31m-        break;[m
-[31m-    case 'ol':[m
-[31m-        $c = '<ol'.$class.$style.'>';[m
-[31m-        if($atts['custom'] == null) {[m
-[31m-			$atts['custom'] = '<li>%user% (%points%)</li>';[m
-[31m-		}[m
-[31m-		foreach($top as $x=>$i) {[m
-[31m-			$text = apply_filters('cp_displayUserInfo',$atts['custom'],$i,$x+1);[m
-[31m-			$c .= $text;[m
-[31m-		}[m
-[31m-		$c .= '</ol>';[m
-[31m-        break;[m
-[31m-    case 'table':[m
-[31m-        $c = '<table'.$class.$style.'>';[m
-[31m-        if($atts['custom'] == null) {[m
-[31m-			$atts['custom'] = '<tr><td>%user%</td><td>%points%</td></tr>';[m
-[31m-		}[m
-[31m-		foreach($top as $x=>$i) {[m
-[31m-			$text = apply_filters('cp_displayUserInfo',$atts['custom'],$i,$x+1);[m
-[31m-			$c .= $text;[m
-[31m-		}[m
-[31m-		$c .= '</table>';[m
-[31m-        break;[m
-[31m-    default;[m
-[31m-        $c = '<ul'.$class.$style.'>';[m
-[31m-        if($atts['custom'] == null) {[m
-[31m-			$atts['custom'] = '<li>%user% (%points%)</li>';[m
-[31m-		}[m
-[31m-		foreach($top as $x=>$i) {[m
-[31m-			$text = apply_filters('cp_displayUserInfo',$atts['custom'],$i,$x+1);[m
-[31m-			$c .= $text;[m
-[31m-		}[m
-[31m-		$c .= '</ul>';[m
-[31m-        break;[m
-[31m-}[m
-[31m-	return $c;[m
-[31m-}[m
-[31m-[m
-[31m-/** Display points info in page */[m
-[31m-add_shortcode('cubepoints','cp_shortcode_user');[m
-[31m-function cp_shortcode_user( $atts ){[m
-[31m-	if($atts['user']!=''){[m
-[31m-		$u=get_userdatabylogin($atts['user']);[m
-[31m-		$uid = $u->ID;[m
-[31m-		if($uid==''){ return ''; }[m
-[31m-		return cp_displayPoints($uid, 1, $atts['format']);[m
-[31m-	}[m
-[31m-	else{[m
-[31m-		$uid = cp_currentUser();[m
-[31m-		if($uid==''){ return $atts['not_logged_in']; }[m
-[31m-		return cp_displayPoints($uid, 1, (bool)$atts['format']);[m
-[31m-	}[m
-[31m-	return $c;[m
-[31m-}[m
-[31m-[m
-[31m-/** Format displays of users */[m
-[31m-add_filter('cp_displayUserInfo', 'cp_displayUserInfo', 10 , 3);[m
-[31m-function cp_displayUserInfo($string,$y,$place) {[m
-[31m-	$user = get_userdata($y['id']);[m
-[31m-	$string = str_replace('%points%', $y['points_formatted'], $string);[m
-[31m-	$string = str_replace('%npoints%', $y['points'], $string);[m
-[31m-	$string = str_replace('%user%', $y['user'], $string);[m
-[31m-	$string = str_replace('%username%', $y['display_name'], $string);[m
-[31m-	$string = str_replace('%userid%', $y['id'], $string);[m
-[31m-	$string = str_replace('%place%', $place, $string);[m
-[31m-	$string = str_replace('%emailhash%', md5(strtolower($user->user_email)), $string);[m
-[31m-	return $string;[m
-[31m-}[m
-[31m-[m
-[31m-/** Formatting tables */[m
-[31m-add_filter('cp_displayTable', 'cp_displayTable');[m
-[31m-function cp_displayTable($string) {[m
-[31m-	$string = '<tr><td>'.$string;[m
-[31m-	$string = str_replace('%d%', '</td><td>', $string);[m
-[31m-	$string .= '</td></tr>';[m
-[31m-	return $string;[m
-[31m-}[m
-[31m-[m
-[31m-/** Hook to process admin manage ajax post request to update points */[m
-[31m-add_action( 'wp_ajax_cp_manage_form_submit', 'cp_manage_form_submit' );[m
-[31m-function cp_manage_form_submit() {[m
-[31m-[m
-[31m-	header( "Content-Type: application/json" );[m
-[31m-	[m
-[31m-	if( ! current_user_can('manage_options')){[m
-[31m-		$response = json_encode( array( 'error' => __('You do not have sufficient permission to manage points!', 'cp') ) );[m
-[31m-		echo $response;[m
-[31m-		exit;[m
-[31m-	}[m
-[31m-	[m
-[31m-	if($_POST['points']!='' && $_POST['user_id']!=''){[m
-[31m-		$points = (int) $_POST['points'];[m
-[31m-		$uid = (int) $_POST['user_id'];[m
-[31m-		$user = get_userdata($uid);[m
-[31m-		if($user->ID==NULL){[m
-[31m-			$response = json_encode( array( 'error' => __('User does not exist!', 'cp') ) );[m
-[31m-			echo $response;[m
-[31m-			exit;[m
-[31m-		}[m
-[31m-		if($points<0){$points = 0;}[m
-[31m-		cp_points_set('admin', $uid, $points, cp_currentUser());[m
-[31m-	}[m
-[31m-	else{[m
-[31m-		$response = json_encode( array( 'error' => __('Invalid request!', 'cp') ) );[m
-[31m-		echo $response;[m
-[31m-		exit;[m
-[31m-	}[m
-[31m-	[m
-[31m-	$response = json_encode( array( 'error' => 'ok' ,[m
-[31m-									'points' => cp_displayPoints($uid, 1, 0) ,[m
-[31m-									'points_formatted' => cp_displayPoints($uid, 1, 1) ,[m
-[31m-									'username' => $user->user_login ,[m
-[31m-									'user_id' => $user->ID [m
-[31m-								   ) );[m
-[31m-	echo $response;[m
-[31m-	exit;[m
-[31m-	[m
-[31m-}[m
-[31m-[m
-[31m-/** Hook for add-points autocomplete user suggestion */[m
-[31m-add_action( 'wp_ajax_cp_add_points_user_suggest', 'cp_add_points_user_suggest' );[m
-[31m-function cp_add_points_user_suggest() {[m
-[31m-[m
-[31m-	header( "Content-Type: application/json" );[m
-[31m-	[m
-[31m-	if( ! current_user_can('manage_options') || $_REQUEST['q']=='' ){[m
-[31m-		$response = json_encode( array() );[m
-[31m-		echo $response;[m
-[31m-		exit;[m
-[31m-	}[m
-[31m-	[m
-[31m-	global $wpdb;[m
-[31m-	$users = $wpdb->get_results('SELECT * from `' . $wpdb->prefix . 'users` WHERE `user_login` LIKE \''.$_REQUEST['q'].'%\' LIMIT 10', ARRAY_A);[m
-[31m-	[m
-[31m-	$response = array();[m
-[31m-	[m
-[31m-	foreach($users as $user){[m
-[31m-		$response[] = implode("|", array($user['user_login'], $user['ID'], $user['display_name'], $user['user_email'], md5(trim(strtolower($user['user_email'])))));[m
-[31m-	}[m
-[31m-	$response = json_encode( implode("\n", $response) );[m
-[31m-	echo $response;[m
-[31m-	exit;[m
-[31m-	[m
-[31m-}[m
-[31m-[m
-[31m-/** Hook for add-points user query */[m
-[31m-add_action( 'wp_ajax_cp_add_points_user_query', 'cp_add_points_user_query' );[m
-[31m-function cp_add_points_user_query() {[m
-[31m-[m
-[31m-	header( "Content-Type: application/json" );[m
-[31m-	[m
-[31m-	if( ! current_user_can('manage_options') || $_REQUEST['q']=='' ){[m
-[31m-		$response = json_encode( array() );[m
-[31m-		echo $response;[m
-[31m-		exit;[m
-[31m-	}[m
-[31m-	[m
-[31m-	global $wpdb;[m
-[31m-	$user = $wpdb->get_row('SELECT * from `' . $wpdb->prefix . 'users` WHERE `user_login` LIKE \''.$wpdb->prepare(trim($_REQUEST['q'])).'\' LIMIT 1', ARRAY_A);[m
-[31m-	if($user['ID'] == null){[m
-[31m-		$response = json_encode( array() );[m
-[31m-		echo $response;[m
-[31m-		exit;[m
-[31m-	}[m
-[31m-	$response = json_encode( array([m
-[31m-							'id' => $user['ID'],[m
-[31m-							'user_login' => $user['user_login'],[m
-[31m-							'display_name' => $user['display_name'],[m
-[31m-							'email' => $user['user_email'],[m
-[31m-							'points' => cp_getPoints($user['ID']),[m
-[31m-							'hash' => md5(trim(strtolower($user['user_email'])))[m
-[31m-							));[m
-[31m-	echo $response;[m
-[31m-	exit;[m
-[31m-	[m
-[31m-}[m
-[31m-[m
-[31m-/** Hook for add-points user update */[m
-[31m-add_action( 'wp_ajax_cp_add_points_user_update', 'cp_add_points_user_update' );[m
-[31m-function cp_add_points_user_update() {[m
-[31m-[m
-[31m-	header( "Content-Type: application/json" );[m
-[31m-	[m
-[31m-	if( ! current_user_can('manage_options') || $_POST['id']=='' || $_POST['points']=='' || $_POST['description']=='' ){[m
-[31m-		$response = json_encode( array( 'status' => 'failed' ) );[m
-[31m-		echo $response;[m
-[31m-		exit;[m
-[31m-	}[m
-[31m-	[m
-[31m-	cp_points('addpoints', (int)$_POST['id'], (int)$_POST['points'], htmlentities($_POST['description']));[m
-[31m-	$response = json_encode( array([m
-[31m-							'status' => 'ok',[m
-[31m-							'newpoints' => cp_getPoints((int)$_POST['id'])[m
-[31m-							));[m
-[31m-	echo $response;[m
-[31m-	exit;[m
-[31m-	[m
-[31m-}[m
-[31m-[m
-[31m-?>[m
-\ No newline at end of file[m
-[32m+[m[32m<?php[m
-[32m+[m[32m/**[m
-[32m+[m[32m * CubePoints plugin hooks and filters[m
-[32m+[m[32m */[m
-[32m+[m
-[32m+[m[32m /** Misc logs hook */[m
-[32m+[m[32madd_action('cp_logs_description','cp_admin_logs_desc_misc', 10, 4);[m
-[32m+[m[32mfunction cp_admin_logs_desc_misc($type,$uid,$points,$data){[m
-[32m+[m	[32mif($type!='misc') { return; }[m
-[32m+[m	[32mecho $data;[m
-[32m+[m[32m}[m
-[32m+[m
-[32m+[m[32m /** Add Points logs hook */[m
-[32m+[m[32madd_action('cp_logs_description','cp_admin_logs_desc_addpoints', 10, 4);[m
-[32m+[m[32mfunction cp_admin_logs_desc_addpoints($type,$uid,$points,$data){[m
-[32m+[m	[32mif($type!='addpoints') { return; }[m
-[32m+[m	[32mecho $data;[m
-[32m+[m[32m}[m
-[32m+[m[41m [m
-[32m+[m[32m/** Comments hook */[m
-[32m+[m[32madd_action('comment_post', 'cp_newComment', 10 ,2);[m
-[32m+[m[32mfunction cp_newComment($cid, $status) {[m
-[32m+[m	[32m$cdata = get_comment($cid);[m
-[32m+[m	[32mif($status == 1){[m
-[32m+[m		[32mdo_action('cp_comment_add', $cid);[m
-[32m+[m		[32mcp_points('comment', cp_currentUser(), apply_filters('cp_comment_points',get_option('cp_comment_points')), $cid);[m
-[32m+[m	[32m}[m
-[32m+[m[32m}[m
-[32m+[m
-[32m+[m[32m/** Comment approved hook */[m
-[32m+[m[32madd_action('comment_unapproved_to_approved', 'cp_commentApprove', 10, 1);[m
-[32m+[m[32madd_action('comment_trash_to_approved', 'cp_commentApprove', 10, 1);[m
-[32m+[m[32madd_action('comment_spam_to_approved', 'cp_commentApprove', 10, 1);[m
-[32m+[m[32mfunction cp_commentApprove($cdata){[m
-[32m+[m	[32mdo_action('cp_comment_add', $cdata->comment_ID);[m
-[32m+[m	[32mcp_points('comment', $cdata->user_id, apply_filters('cp_comment_points',get_option('cp_comment_points')), $cdata->comment_ID);[m
-[32m+[m[32m}[m
-[32m+[m
-[32m+[m[32m/** Comment unapproved hook */[m
-[32m+[m[32madd_action('comment_approved_to_unapproved', 'cp_commentUnapprove', 10, 1);[m
-[32m+[m[32madd_action('comment_approved_to_trash', 'cp_commentUnapprove', 10, 1);[m
-[32m+[m[32madd_action('comment_approved_to_spam', 'cp_commentUnapprove', 10, 1);[m
-[32m+[m[32mfunction cp_commentUnapprove($cdata){[m
-[32m+[m	[32m// check if points were indeed awarded for this comment[m
-[32m+[m	[32mglobal $wpdb;[m
-[32m+[m	[32mif($wpdb->get_var('SELECT COUNT(*) FROM ' . CP_DB . ' WHERE type = \'comment\' AND data = ' . $cdata->comment_ID)==0){[m
-[32m+[m		[32mreturn;[m
-[32m+[m	[32m}[m
-[32m+[m	[32mdo_action('cp_comment_remove', $cdata->comment_ID);[m
-[32m+[m	[32mcp_points('comment_remove', $cdata->user_id, apply_filters('cp_del_comment_points',-get_option('cp_del_comment_points')), $cdata->comment_ID);[m
-[32m+[m[32m}[m
-[32m+[m
-[32m+[m[32m/** Comments logs hook */[m
-[32m+[m[32madd_action('cp_logs_description','cp_admin_logs_desc_comment', 10, 4);[m
-[32m+[m[32mfunction cp_admin_logs_desc_comment($type,$uid,$points,$data){[m
-[32m+[m	[32mif($type!='comment') { return; }[m
-[32m+[m	[32m$cdata = get_comment($data);[m
-[32m+[m	[32mif($cdata==null){ echo '<span title="'.__('Comment removed', 'cp').'...">'.__('Comment', 'cp').'</span>'; return; }[m
-[32m+[m	[32m$pid = $cdata->comment_post_ID;[m
-[32m+[m	[32m$pdata = get_post($pid);[m
-[32m+[m	[32m$ptitle = $pdata->post_title;[m
-[32m+[m	[32m$url = get_permalink( $pid ) . '#comment-' . $data;[m
-[32m+[m	[32m$detail = __('Comment', 'cp').': '.cp_truncate(strip_tags($cdata->comment_content), 100, false);[m
-[32m+[m	[32mecho '<span title="'.$detail.'">'.__('Comment on', 'cp').' &quot;<a href="'.$url.'">'.$ptitle.'</a>&quot;</span>';[m
-[32m+[m[32m}[m
-[32m+[m
-[32m+[m[32m/** Comments removal logs hook */[m
-[32m+[m[32madd_action('cp_logs_description','cp_admin_logs_desc_comment_remove', 10, 4);[m
-[32m+[m[32mfunction cp_admin_logs_desc_comment_remove($type,$uid,$points,$data){[m
-[32m+[m	[32mif($type!='comment_remove') { return; }[m
-[32m+[m	[32m_e('Comment Deletion', 'cp');[m
-[32m+[m[32m}[m
-[32m+[m
-[32m+[m[32m/** Post hook */[m
-[32m+[m[32madd_action('publish_post', 'cp_newPost');[m
-[32m+[m[32mfunction cp_newPost($pid) {[m
-[32m+[m	[32m$post = get_post($pid);[m
-[32m+[m	[32m$uid = $post->post_author;[m
-[32m+[m	[32mglobal $wpdb;[m
-[32m+[m	[32m$count = (int) $wpdb->get_var("select count(id) from `".CP_DB."` where `type`='post' and `data`=". $pid);[m
-[32m+[m	[32mif($count==0){[m
-[32m+[m		[32mcp_points('post', $uid, apply_filters('cp_post_points',get_option('cp_post_points')), $pid);[m
-[32m+[m	[32m}[m
-[32m+[m[32m}[m
-[32m+[m
-[32m+[m[32m/** Post logs hook */[m
-[32m+[m[32madd_action('cp_logs_description','cp_admin_logs_desc_post', 10, 4);[m
-[32m+[m[32mfunction cp_admin_logs_desc_post($type,$uid,$points,$data){[m
-[32m+[m	[32mif($type!='post') { return; }[m
-[32m+[m	[32m$post = get_post($data);[m
-[32m+[m	[32mecho __('Post on', 'cp') . ' "<a href="'.get_permalink( $post ).'">' . $post->post_title . '</a>"';[m
-[32m+[m[32m}[m
-[32m+[m
-[32m+[m[32m/** User registration hook */[m
-[32m+[m[32madd_action('user_register', 'cp_newUser');[m
-[32m+[m[32mfunction cp_newUser($uid) {[m
-[32m+[m	[32mcp_points('register', $uid, apply_filters('cp_reg_points',get_option('cp_reg_points')), $uid);[m
-[32m+[m[32m}[m
-[32m+[m
-[32m+[m[32m/** User registration logs hook */[m
-[32m+[m[32madd_action('cp_logs_description','cp_admin_logs_desc_register', 10, 4);[m
-[32m+[m[32mfunction cp_admin_logs_desc_register($type,$uid,$points,$data){[m
-[32m+[m	[32mif($type!='register') { return; }[m
-[32m+[m	[32m_e('Registration', 'cp');[m
-[32m+[m[32m}[m
-[32m+[m
-[32m+[m[32m/** Admin manage logs hook */[m
-[32m+[m[32madd_action('cp_logs_description','cp_admin_logs_desc_admin', 10, 4);[m
-[32m+[m[32mfunction cp_admin_logs_desc_admin($type,$uid,$points,$data){[m
-[32m+[m	[32mif($type!='admin') { return; }[m
-[32m+[m	[32m$user = get_userdata($data);[m
-[32m+[m	[32mecho __('Pontos ajustado pelo', 'cp') . ' "' .  $user->user_login . '"';[m
-[32m+[m[32m}[m
-[32m+[m
-[32m+[m[32m/** Remote site logs hook */[m
-[32m+[m[32madd_action('cp_logs_description','cp_admin_logs_desc_remote', 10, 4);[m
-[32m+[m[32mfunction cp_admin_logs_desc_remote($type,$uid,$points,$data){[m
-[32m+[m	[32mif($type!='remote') { return; }[m
-[32m+[m	[32mlist($name,$url) = explode('^', $data);[m
-[32m+[m	[32mecho __('Points earned from ') . ' "<a href="'.$url.'">' . $name . '</a>"';[m
-[32m+[m[32m}[m
-[32m+[m
-[32m+[m[32m/** Custom logs hook */[m
-[32m+[m[32madd_action('cp_logs_description','cp_admin_logs_desc_custom', 10, 4);[m
-[32m+[m[32mfunction cp_admin_logs_desc_custom($type,$uid,$points,$data){[m
-[32m+[m	[32mif($type!='custom') { return; }[m
-[32m+[m	[32mecho $data;[m
-[32m+[m[32m}[m
-[32m+[m
-[32m+[m[32m/** Display top users in page */[m
-[32m+[m[32madd_shortcode('cubepoints_top','cp_shortcode_top');[m
-[32m+[m[32mfunction cp_shortcode_top( $atts ){[m
-[32m+[m	[32m$num = (int) $atts['num'];[m
-[32m+[m	[32mif($num<1){$num=1;}[m
-[32m+[m	[32m$top = cp_getAllPoints($num,get_option('cp_topfilter'));[m
-[32m+[m	[32mif($atts['class']!=''){$class = ' class="'.$atts['class'].'"';}[m
-[32m+[m	[32mif($atts['style']!=''){$style = ' style="'.$atts['style'].'"';}[m
-[32m+[m	[32mswitch ($atts['display']) {[m
-[32m+[m[32m    case 'custom':[m
-[32m+[m[32m        if($atts['custom'] == null) {[m
-[32m+[m			[32m$atts['custom'] = '%user% (%points%)';[m
-[32m+[m		[32m}[m
-[32m+[m		[32mforeach($top as $x=>$i) {[m
-[32m+[m			[32m$text = apply_filters('cp_displayUserInfo',$atts['custom'],$i,$x+1);[m
-[32m+[m			[32m$c .= $text;[m
-[32m+[m		[32m}[m
-[32m+[m[32m        break;[m
-[32m+[m[32m    case 'ol':[m
-[32m+[m[32m        $c = '<ol'.$class.$style.'>';[m
-[32m+[m[32m        if($atts['custom'] == null) {[m
-[32m+[m			[32m$atts['custom'] = '<li>%user% (%points%)</li>';[m
-[32m+[m		[32m}[m
-[32m+[m		[32mforeach($top as $x=>$i) {[m
-[32m+[m			[32m$text = apply_filters('cp_displayUserInfo',$atts['custom'],$i,$x+1);[m
-[32m+[m			[32m$c .= $text;[m
-[32m+[m		[32m}[m
-[32m+[m		[32m$c .= '</ol>';[m
-[32m+[m[32m        break;[m
-[32m+[m[32m    case 'table':[m
-[32m+[m[32m        $c = '<table'.$class.$style.'>';[m
-[32m+[m[32m        if($atts['custom'] == null) {[m
-[32m+[m			[32m$atts['custom'] = '<tr><td>%user%</td><td>%points%</td></tr>';[m
-[32m+[m		[32m}[m
-[32m+[m		[32mforeach($top as $x=>$i) {[m
-[32m+[m			[32m$text = apply_filters('cp_displayUserInfo',$atts['custom'],$i,$x+1);[m
-[32m+[m			[32m$c .= $text;[m
-[32m+[m		[32m}[m
-[32m+[m		[32m$c .= '</table>';[m
-[32m+[m[32m        break;[m
-[32m+[m[32m    default;[m
-[32m+[m[32m        $c = '<ul'.$class.$style.'>';[m
-[32m+[m[32m        if($atts['custom'] == null) {[m
-[32m+[m			[32m$atts['custom'] = '<li>%user% (%points%)</li>';[m
-[32m+[m		[32m}[m
-[32m+[m		[32mforeach($top as $x=>$i) {[m
-[32m+[m			[32m$text = apply_filters('cp_displayUserInfo',$atts['custom'],$i,$x+1);[m
-[32m+[m			[32m$c .= $text;[m
-[32m+[m		[32m}[m
-[32m+[m		[32m$c .= '</ul>';[m
-[32m+[m[32m        break;[m
-[32m+[m[32m}[m
-[32m+[m	[32mreturn $c;[m
-[32m+[m[32m}[m
-[32m+[m
-[32m+[m[32m/** Display points info in page */[m
-[32m+[m[32madd_shortcode('cubepoints','cp_shortcode_user');[m
-[32m+[m[32mfunction cp_shortcode_user( $atts ){[m
-[32m+[m	[32mif($atts['user']!=''){[m
-[32m+[m		[32m$u=get_userdatabylogin($atts['user']);[m
-[32m+[m		[32m$uid = $u->ID;[m
-[32m+[m		[32mif($uid==''){ return ''; }[m
-[32m+[m		[32mreturn cp_displayPoints($uid, 1, $atts['format']);[m
-[32m+[m	[32m}[m
-[32m+[m	[32melse{[m
-[32m+[m		[32m$uid = cp_currentUser();[m
-[32m+[m		[32mif($uid==''){ return $atts['not_logged_in']; }[m
-[32m+[m		[32mreturn cp_displayPoints($uid, 1, (bool)$atts['format']);[m
-[32m+[m	[32m}[m
-[32m+[m	[32mreturn $c;[m
-[32m+[m[32m}[m
-[32m+[m
-[32m+[m[32m/** Format displays of users */[m
-[32m+[m[32madd_filter('cp_displayUserInfo', 'cp_displayUserInfo', 10 , 3);[m
-[32m+[m[32mfunction cp_displayUserInfo($string,$y,$place) {[m
-[32m+[m	[32m$user = get_userdata($y['id']);[m
-[32m+[m	[32m$string = str_replace('%points%', $y['points_formatted'], $string);[m
-[32m+[m	[32m$string = str_replace('%npoints%', $y['points'], $string);[m
-[32m+[m	[32m$string = str_replace('%user%', $y['user'], $string);[m
-[32m+[m	[32m$string = str_replace('%username%', $y['display_name'], $string);[m
-[32m+[m	[32m$string = str_replace('%userid%', $y['id'], $string);[m
-[32m+[m	[32m$string = str_replace('%place%', $place, $string);[m
-[32m+[m	[32m$string = str_replace('%emailhash%', md5(strtolower($user->user_email)), $string);[m
-[32m+[m	[32mreturn $string;[m
-[32m+[m[32m}[m
-[32m+[m
-[32m+[m[32m/** Formatting tables */[m
-[32m+[m[32madd_filter('cp_displayTable', 'cp_displayTable');[m
-[32m+[m[32mfunction cp_displayTable($string) {[m
-[32m+[m	[32m$string = '<tr><td>'.$string;[m
-[32m+[m	[32m$string = str_replace('%d%', '</td><td>', $string);[m
-[32m+[m	[32m$string .= '</td></tr>';[m
-[32m+[m	[32mreturn $string;[m
-[32m+[m[32m}[m
-[32m+[m
-[32m+[m[32m/** Hook to process admin manage ajax post request to update points */[m
-[32m+[m[32madd_action( 'wp_ajax_cp_manage_form_submit', 'cp_manage_form_submit' );[m
-[32m+[m[32mfunction cp_manage_form_submit() {[m
-[32m+[m
-[32m+[m	[32mheader( "Content-Type: application/json" );[m
-[32m+[m[41m	[m
-[32m+[m	[32mif( ! current_user_can('manage_options')){[m
-[32m+[m		[32m$response = json_encode( array( 'error' => __('You do not have sufficient permission to manage points!', 'cp') ) );[m
-[32m+[m		[32mecho $response;[m
-[32m+[m		[32mexit;[m
-[32m+[m	[32m}[m
-[32m+[m[41m	[m
-[32m+[m	[32mif($_POST['points']!='' && $_POST['user_id']!=''){[m
-[32m+[m		[32m$points = (int) $_POST['points'];[m
-[32m+[m		[32m$uid = (int) $_POST['user_id'];[m
-[32m+[m		[32m$user = get_userdata($uid);[m
-[32m+[m		[32mif($user->ID==NULL){[m
-[32m+[m			[32m$response = json_encode( array( 'error' => __('User does not exist!', 'cp') ) );[m
-[32m+[m			[32mecho $response;[m
-[32m+[m			[32mexit;[m
-[32m+[m		[32m}[m
-[32m+[m		[32mif($points<0){$points = 0;}[m
-[32m+[m		[32mcp_points_set('admin', $uid, $points, cp_currentUser());[m
-[32m+[m	[32m}[m
-[32m+[m	[32melse{[m
-[32m+[m		[32m$response = json_encode( array( 'error' => __('Invalid request!', 'cp') ) );[m
-[32m+[m		[32mecho $response;[m
-[32m+[m		[32mexit;[m
-[32m+[m	[32m}[m
-[32m+[m[41m	[m
-[32m+[m	[32m$response = json_encode( array( 'error' => 'ok' ,[m
-[32m+[m									[32m'points' => cp_displayPoints($uid, 1, 0) ,[m
-[32m+[m									[32m'points_formatted' => cp_displayPoints($uid, 1, 1) ,[m
-[32m+[m									[32m'username' => $user->user_login ,[m
-[32m+[m									[32m'user_id' => $user->ID[m[41m [m
-[32m+[m								[32m   ) );[m
-[32m+[m	[32mecho $response;[m
-[32m+[m	[32mexit;[m
-[32m+[m[41m	[m
-[32m+[m[32m}[m
-[32m+[m
-[32m+[m[32m/** Hook for add-points autocomplete user suggestion */[m
-[32m+[m[32madd_action( 'wp_ajax_cp_add_points_user_suggest', 'cp_add_points_user_suggest' );[m
-[32m+[m[32mfunction cp_add_points_user_suggest() {[m
-[32m+[m
-[32m+[m	[32mheader( "Content-Type: application/json" );[m
-[32m+[m[41m	[m
-[32m+[m	[32mif( ! current_user_can('manage_options') || $_REQUEST['q']=='' ){[m
-[32m+[m		[32m$response = json_encode( array() );[m
-[32m+[m		[32mecho $response;[m
-[32m+[m		[32mexit;[m
-[32m+[m	[32m}[m
-[32m+[m[41m	[m
-[32m+[m	[32mglobal $wpdb;[m
-[32m+[m	[32m$users = $wpdb->get_results('SELECT * from `' . $wpdb->prefix . 'users` WHERE `user_login` LIKE \''.$_REQUEST['q'].'%\' LIMIT 10', ARRAY_A);[m
-[32m+[m[41m	[m
-[32m+[m	[32m$response = array();[m
-[32m+[m[41m	[m
-[32m+[m	[32mforeach($users as $user){[m
-[32m+[m		[32m$response[] = implode("|", array($user['user_login'], $user['ID'], $user['display_name'], $user['user_email'], md5(trim(strtolower($user['user_email'])))));[m
-[32m+[m	[32m}[m
-[32m+[m	[32m$response = json_encode( implode("\n", $response) );[m
-[32m+[m	[32mecho $response;[m
-[32m+[m	[32mexit;[m
-[32m+[m[41m	[m
-[32m+[m[32m}[m
-[32m+[m
-[32m+[m[32m/** Hook for add-points user query */[m
-[32m+[m[32madd_action( 'wp_ajax_cp_add_points_user_query', 'cp_add_points_user_query' );[m
-[32m+[m[32mfunction cp_add_points_user_query() {[m
-[32m+[m
-[32m+[m	[32mheader( "Content-Type: application/json" );[m
-[32m+[m[41m	[m
-[32m+[m	[32mif( ! current_user_can('manage_options') || $_REQUEST['q']=='' ){[m
-[32m+[m		[32m$response = json_encode( array() );[m
-[32m+[m		[32mecho $response;[m
-[32m+[m		[32mexit;[m
-[32m+[m	[32m}[m
-[32m+[m[41m	[m
-[32m+[m	[32mglobal $wpdb;[m
-[32m+[m	[32m$user = $wpdb->get_row('SELECT * from `' . $wpdb->prefix . 'users` WHERE `user_login` LIKE \''.$wpdb->prepare(trim($_REQUEST['q'])).'\' LIMIT 1', ARRAY_A);[m
-[32m+[m	[32mif($user['ID'] == null){[m
-[32m+[m		[32m$response = json_encode( array() );[m
-[32m+[m		[32mecho $response;[m
-[32m+[m		[32mexit;[m
-[32m+[m	[32m}[m
-[32m+[m	[32m$response = json_encode( array([m
-[32m+[m							[32m'id' => $user['ID'],[m
-[32m+[m							[32m'user_login' => $user['user_login'],[m
-[32m+[m							[32m'display_name' => $user['display_name'],[m
-[32m+[m							[32m'email' => $user['user_email'],[m
-[32m+[m							[32m'points' => cp_getPoints($user['ID']),[m
-[32m+[m							[32m'hash' => md5(trim(strtolower($user['user_email'])))[m
-[32m+[m							[32m));[m
-[32m+[m	[32mecho $response;[m
-[32m+[m	[32mexit;[m
-[32m+[m[41m	[m
-[32m+[m[32m}[m
-[32m+[m
-[32m+[m[32m/** Hook for add-points user update */[m
-[32m+[m[32madd_action( 'wp_ajax_cp_add_points_user_update', 'cp_add_points_user_update' );[m
-[32m+[m[32mfunction cp_add_points_user_update() {[m
-[32m+[m
-[32m+[m	[32mheader( "Content-Type: application/json" );[m
-[32m+[m[41m	[m
-[32m+[m	[32mif( ! current_user_can('manage_options') || $_POST['id']=='' || $_POST['points']=='' || $_POST['description']=='' ){[m
-[32m+[m		[32m$response = json_encode( array( 'status' => 'failed' ) );[m
-[32m+[m		[32mecho $response;[m
-[32m+[m		[32mexit;[m
-[32m+[m	[32m}[m
-[32m+[m[41m	[m
-[32m+[m	[32mcp_points('addpoints', (int)$_POST['id'], (int)$_POST['points'], htmlentities($_POST['description']));[m
-[32m+[m	[32m$response = json_encode( array([m
-[32m+[m							[32m'status' => 'ok',[m
-[32m+[m							[32m'newpoints' => cp_getPoints((int)$_POST['id'])[m
-[32m+[m							[32m));[m
-[32m+[m	[32mecho $response;[m
-[32m+[m	[32mexit;[m
-[32m+[m[41m	[m
-[32m+[m[32m}[m
-\ No newline at end of file[m
