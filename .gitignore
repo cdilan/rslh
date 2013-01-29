@@ -192,3 +192,5 @@ wp-includes/*
 /.htaccess
 /wp-app.php
 /readme.html
+/error_log
+/linhas-config-digg-digg.sql
