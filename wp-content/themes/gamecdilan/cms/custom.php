@@ -169,6 +169,14 @@ function gamecdilan_atividade_meta_boxes() {
         'normal',
         'high'
     );       
+    add_meta_box(
+        'medalhas_jogador_metabox_id',
+        'Atividades sugeridas',
+        'medalhas_jogador_inner_meta_box',
+        'atividade',
+        'normal',
+        'high'
+    );       
 }
 
 function form_atividade_inner_meta_box($post) {
@@ -205,6 +213,18 @@ function sugeridas_atividade_inner_meta_box($post) {
 	wp_nonce_field( 'sugeridas_atividade_box_nonce', 'sugeridas_atividade_meta_box_nonce' ); 
 
 	wp_editor( html_entity_decode($sugeridas), 'sugeridas_atividade', array( 'textarea_name' => 'sugeridas_atividade', 'media_buttons' => false, 'textarea_rows' => 5 ) );
+
+}
+
+function medalhas_jogador_inner_meta_box($post) {
+
+	global $post;
+    $values = get_post_custom( $post->ID );
+    $sugeridas = isset( $values['medalhas_jogador'] ) ? esc_attr( $values['medalhas_jogador'][0] ) : '';
+
+	wp_nonce_field( 'medalhas_jogador_box_nonce', 'medalhas_jogador_meta_box_nonce' ); 
+
+	wp_editor( html_entity_decode($sugeridas), 'medalhas_jogador', array( 'textarea_name' => 'medalhas_jogador', 'media_buttons' => false, 'textarea_rows' => 5 ) );
 
 }
 
@@ -275,4 +295,25 @@ function gamecdilan_sugeridas_atividade_save_post( $post_id )
 
 } 
 
+add_action( 'save_post', 'gamecdilan_medalhas_jogador_save_post' );  
+function gamecdilan_medalhas_jogador_save_post( $post_id )
+{  
+    /* --- security verification --- */  
+    if(defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {  
+      return $id;  
+    } // end if  
+  
+    if(!current_user_can('edit_page', $id)) {  
+        return $id;  
+    } // end if  
+    /* - end security verification - */  
+  
+    // if our nonce isn't there, or we can't verify it, bail 
+    if( !isset( $_POST['medalhas_jogador_meta_box_nonce'] ) || !wp_verify_nonce( $_POST['medalhas_jogador_meta_box_nonce'], 'medalhas_jogador_box_nonce' ) ) return; 
+  
+    // Make sure your data is set before trying to save it  
+    if(isset( $_POST['medalhas_jogador']))
+        update_post_meta( $post_id, 'medalhas_jogador', $_POST['medalhas_jogador'] );  
+
+} 
 ?>

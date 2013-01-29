@@ -37,16 +37,4 @@ function altera_assinante_para_jogador($entry_id, $form_id) {
 	}
 }
 
-/****************************************************************************
-# Atualiza status da atividade para completada depois de enviar form
-****************************************************************************/
-
-add_action('frm_after_create_entry','altera_usermeta_status_completed', 30,2);
-add_action('frm_after_update_entry','altera_usermeta_status_completed', 30,2);
-
-function altera_usermeta_status_completed ($entry_id, $form_id) {
-	//pega informação da última página visitada que está salvada no usermeta pelo single-atividade.php
-	$postid = get_user_meta(get_current_user_id(),last_visited, true);
-	update_user_meta(get_current_user_id(), $postid, "completed");
-}
 ?>

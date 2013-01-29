@@ -1,0 +1,1 @@
+[24-Jan-2013 14:51:18] PHP Fatal error:  Call to a member function add_query_var() on a non-object in /home/cdilanc/public_html/rslh/wp-content/plugins/usernoise/inc/model.php on line 13

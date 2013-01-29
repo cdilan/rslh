@@ -41,8 +41,6 @@
                                         </section>
                                     <?php endif; ?>
                                     <?php $post = $tmp_post; ?>
-
-                                    <a name="comentarios"></a>
                                     <section id="comentarios">
                                         <?php wp_reset_query(); ?>
                                         <?php comments_template( '', true ); ?>

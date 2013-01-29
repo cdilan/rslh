@@ -22,8 +22,6 @@
                                         <li class="span6">
                                             <div class="thumbnail">
                                                 <?php if (has_post_thumbnail()) { the_post_thumbnail('thumbnail'); } ?>
-												<?php //PEGADA - Sistema para salvar o rastro, regasta informação no banco de dados se usuário já visitou página ?>
-												<p><?php echo get_user_meta(get_current_user_id(),$post->ID, true) ?></p>
                                                 <h2><?php the_title(); ?></h2>
                                                 <div><?php echo substr(get_the_excerpt(), 0, 180); ?>...</div>
                                                 <a href="<?php the_permalink(); ?>" class="btn btn-primary">Fazer atividade</a>
