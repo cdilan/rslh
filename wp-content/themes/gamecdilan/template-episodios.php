@@ -8,19 +8,6 @@ get_header(); ?>
                 <div class="container">
                     <div class="page-header">
                         <h1><?php the_title(); ?></h1>
-                        <?php /*
-                        <p>Atividades realizadas: <?php $contagem_atividade_realizadas = $wpdb->get_var('SELECT COUNT(*) FROM  `wp_usermeta` WHERE  `meta_value` =  "completed" AND `user_id` = '.get_current_user_id().''); echo "{$contagem_atividade_realizadas}"; ?>/<?php $contagem_atividade = $wpdb->get_var('SELECT COUNT(*) FROM  `wp_posts` WHERE  `post_status` =  "publish" AND  `post_type` =  "atividade"'); echo "{$contagem_atividade}"; ?></p>
-                        <?php //echo $contagem_atividade_realizadas."==".$contagem_atividade ?>
-                        <?php if($contagem_atividade_realizadas==$contagem_atividade) { ?>
-                            <p>Parabéns, você já realizou todas as atividades, que tal <a href="<?php echo get_bloginfo('url'); ?>/desafios">começar um desafio?</a></p>
-                        <?php } else if($contagem_atividade_realizadas==0) { ?>
-                            <p>Bem-vindo ao jogo, você ainda não realizou nenhuma atividade, que tal <a href='<?php echo get_bloginfo('url'); ?>/episodio/introducao/'>começar pela introdução?</a></p>
-                        <?php } else { ?>
-                            <?php $id_da_ultima_atividade = get_user_meta( get_current_user_id(), $key = 'last_visited', $single = true ); ?>
-                            <p>Última atividade visitada: <a href=<?php echo get_permalink($id_da_ultima_atividade); ?>><?php echo get_the_title($id_da_ultima_atividade); ?></a></p>
-                        <?php } */?>
-                        <?php $id_da_ultima_atividade = get_user_meta( get_current_user_id(), $key = 'last_visited', $single = true ); ?>
-                        <p>Última atividade visitada: <a href=<?php echo get_permalink($id_da_ultima_atividade); ?>><?php echo get_the_title($id_da_ultima_atividade); ?></a></p>
                     </div>
                     <ul id="episodios">
                     <?php 
