@@ -10,7 +10,7 @@ instalação windows ou mac
         <i>Exemplo: C:\xampp\htdocs</i>
     </li>
     <li>clone o GIT<br >
-        <i><strike>No caso de aparecer a pasta rslh no servidor, recortar o conteúdo e colar na raíz do servidor, então no options do github dar um search for repositories</strike></i>
+        <i>deverá ficar em www/rslh</i>
     </li>
     <li>renomeie a pasta 'wp-content' para 'wp-content-bk'<br />
         <i>fechar o github antes, senão windows não permite</i>
