@@ -9,8 +9,8 @@ instalação windows ou mac
     <li>configure o 'default sotrage directory' do seu GIT Client para a raiz do seu localhost<br />
         <i>Exemplo: C:\xampp\htdocs</i>
     </li>
-    <li>clone o GIT apontando para essa pasta<br >
-        <i>No caso de aparecer a pasta rslh no servidor, recortar o conteúdo e colar na raíz do servidor, então no options do github dar um search for repositories</i>
+    <li>clone o GIT <strike>apontando para essa pasta</strike><br >
+        <i><strike>No caso de aparecer a pasta rslh no servidor, recortar o conteúdo e colar na raíz do servidor, então no options do github dar um search for repositories</strike></i>
     </li>
     <li>renomeie a pasta 'wp-content' para 'wp-content-bk'<br />
         <i>fechar o github antes, senão windows não permite</i>
