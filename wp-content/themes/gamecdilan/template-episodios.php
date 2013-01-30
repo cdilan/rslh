@@ -20,8 +20,8 @@ get_header(); ?>
                             <p>Última atividade visitada: <a href=<?php echo get_permalink($id_da_ultima_atividade); ?>><?php echo get_the_title($id_da_ultima_atividade); ?></a></p>
                         <?php } */?>
                         <?php $id_da_ultima_atividade = get_user_meta( get_current_user_id(), $key = 'last_visited', $single = true ); ?>
-                        <p>Última atividade visitada: <a href=<?php echo get_permalink($id_da_ultima_atividade); ?>><?php echo get_the_title($id_da_ultima_atividade); ?></a></p>
                         <h1><?php the_title(); ?></h1>
+                        <p>Última atividade visitada: <a href=<?php echo get_permalink($id_da_ultima_atividade); ?>><?php echo get_the_title($id_da_ultima_atividade); ?></a></p>
                     </div>
                     <ul id="episodios">
                     <?php 
