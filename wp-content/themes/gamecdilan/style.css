@@ -221,6 +221,9 @@ body{
 	line-height: 120%;
 }
 
+.lista-jogadores .thumbnail h6{
+	overflow: hidden;
+} /*f5sites*/
 .lista-jogadores .thumbnail p{
 	margin: 0;
 	font-size: 13px;
