@@ -7,7 +7,11 @@ get_header(); ?>
                         <div class="container">
                             <?php if (have_posts()) : ?>
                                 <?php while (have_posts()) : the_post(); ?>
-                                    <div class="entry"><?php the_content(); ?></div>
+                                    <div class="entry">
+                                        <?php $id_da_ultima_atividade = get_user_meta( get_current_user_id(), $key = 'last_visited', $single = true ); ?>
+                                        <?php the_content(); ?>
+                                        <p>Última atividade visitada: <a href=<?php echo get_permalink($id_da_ultima_atividade); ?>><?php echo get_the_title($id_da_ultima_atividade); ?></a></p>
+                                    </div>
                                 <?php endwhile; ?>
                             <?php endif; ?>
                             <div class="row">
