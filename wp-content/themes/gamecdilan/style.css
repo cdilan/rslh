@@ -146,7 +146,7 @@ body{
 }
 
 #episodios .thumbnail p{
-	height: 226px;
+	height:180px; /*f5sites 226px;*/
 }
 
 #lista-episodios .bx-prev,
