@@ -34,7 +34,8 @@ instalação windows ou mac
     </ol>
     <li>acesse o ADMIN do wordpress novamente (aparecerá um aviso para fazer um update no wordpress)</li>
     <li>faça o update</li>
-    <li>configure o permalink para '/%category%/%post_id%/'</li>
+    <li>DAQUI PARA BAIXO JÁ VEM NO DUMP DO SQL</li>
+    <li>configure o permalink para '/%category%/%post_id%/'<br /></li>
     <li>ative o tema GAME CDILan</li>
     <li>ative os seguintes plugins</li>
     <ul><ul>
