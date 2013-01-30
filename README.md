@@ -12,9 +12,7 @@ instalação windows ou mac
     <li>clone o GIT<br >
         <i>deverá ficar em www/rslh</i>
     </li>
-    <li>renomeie a pasta 'wp-content' para 'wp-content-bk'<br />
-        <i>fechar o github antes, senão windows não permite</i>
-    </li>
+    <li>renomeie a pasta 'wp-content' para 'wp-content-bk'</li>
     <li>baixe o pacote wordpress-3.5-pt_BR</li>
     <li>descompacte-o na pasta 'rslh'</li>
     <li>crie um banco de dados 'rslh'</li>
