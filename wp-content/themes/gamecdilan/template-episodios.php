@@ -35,9 +35,10 @@ get_header(); ?>
                                 
                                 <h2><?php echo $term->name; ?></h2>
                                 <p>
-                                    <strong><?php echo $term->count; ?> Atividades</strong>
+                                    
                                     
                                     <?php 
+                                    /*<strong><?php echo $term->count; ?> Atividades</strong> */
                                     
                                     $query_inside_loop = query_posts('episodio='.$term->slug.'');
                                     $quantidade_de_atividades_desse_episodio = sizeof($query_inside_loop);
@@ -66,8 +67,8 @@ get_header(); ?>
                                     <?php echo substr($term->description, 0, 280); ?>...
                                 </p>
                                 <div class="progress progress-striped progress-warning">
-                                        
-                                      <div class="bar" style="width: <?php echo $porcentagem_progresso ?>%;"><?php echo "($atividades_completadas/$quantidade_de_atividades_desse_episodio)" ?></div>
+                                      <?php echo "($atividades_completadas/$quantidade_de_atividades_desse_episodio"." atividades)"; ?>  
+                                      <div class="bar" style="width: <?php echo $porcentagem_progresso ?>%;color:#000;"></div>
                                 </div>
                                 <a href="<?php echo get_term_link($term->slug, 'episodio'); ?>" class="btn btn-primary">Ver episódio <i class="icon-chevron-right icon-white"></i></a>
                                 <!--h4>Seu progresso </h4-->
