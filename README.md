@@ -22,7 +22,7 @@ instalação windows ou mac
     <li>delete a pasta wp-content</li>
     <li>renomeie de volta a pasta wp-content-bk para wp-content</li>
     <li>faça as seguintes alterações no DUMP do SQL<br />
-    <i>está localizado na pasta rslh com o nome dump.sql</i></li>
+    <i>está localizado na pasta rslh com o nome dump.sql, copie para outra pasta antes de editar</i></li>
     <ol>
         <li>substitua</li>
         <ol>
