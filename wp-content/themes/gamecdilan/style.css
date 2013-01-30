@@ -863,3 +863,10 @@ input[type="color"],
 	text-transform: uppercase;
 	overflow: hidden;
 }
+
+/* Posiciona medalha dentro  box das atividade na página do episódio */
+.medal-points {
+	margin-left: 305px;
+	margin-top: -10px;
+	position: absolute;
+}
