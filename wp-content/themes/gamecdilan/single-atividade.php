@@ -71,7 +71,7 @@
 
                         <aside class="span4">
                              <?php if(get_post_meta($post->ID, 'medalhas_pontos', true)) : ?>
-                                <div id="sugeridas" class="widget">
+                                <div id="medalhas-pontos" class="widget">
                                     <h3>Medalhas e pontos dessa atividade</h3>
                                     <div class="well">
                                         <?php echo do_shortcode(get_post_meta( $post->ID, 'medalhas_pontos', true )); ?>
