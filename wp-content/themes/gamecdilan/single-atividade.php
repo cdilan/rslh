@@ -70,14 +70,19 @@
                         </div>
 
                         <aside class="span4">
-                             <?php if(get_post_meta($post->ID, 'medalhas_pontos', true)) : ?>
-                                <div id="medalhas-pontos" class="widget">
-                                    <h3>Medalhas e pontos dessa atividade</h3>
+                            <div id="medalhas-pontos" class="widget">
+                                <h3>Medalhas e pontos dessa atividade</h3>
                                     <div class="well">
-                                        <?php echo do_shortcode(get_post_meta( $post->ID, 'medalhas_pontos', true )); ?>
+                                        <?php if(get_post_meta($post->ID, 'medalhas_pontos', true)) : ?>
+                                            <?php echo do_shortcode(get_post_meta( $post->ID, 'medalhas_pontos', true )); ?>
+                                        <?php else: ?>
+                                            <h5><font style="position: absolute; font-size:12px; font-family:Titillium Web; color:#333333;">Pontuação:</font></h5></b><br />
+                                            <font style="position: absolute; font-size:12px; font-family:Titillium Web; color:#333333;">Comentar atividade de outros jogadores 5 Pontos;</font><br />
+                                            <font style="position: absolute; font-size:12px; font-family:Titillium Web; color:#333333;">Ter a sua atividade comentada 8 Pontos;</font><br />
+                                            <font style="position: absolute; font-size:12px; font-family:Titillium Web; color:#333333;">Entregar esta atividade 13 Pontos.</font><br />
+                                        <?php endif; ?>
                                     </div>
-                                </div>
-                            <?php endif; ?>
+                            </div>
 
                             <?php if(get_post_meta($post->ID, 'sugeridas_atividade', true)) : ?>
                                 <div id="sugeridas" class="widget">
@@ -102,6 +107,7 @@
                                 $args = array(
                                     'numberposts' => 20,
                                     'post_type'=>'atividade',
+                                    'post__not_in' => array($post->ID),
                                     'tax_query'=> array(
                                         array(
                                             'taxonomy'=>'episodio',
@@ -118,7 +124,6 @@
                                 <div class="well">
                                     <ul>
                                         <?php
-                                            
                                             $outras_atividades = get_posts($args);
                                             foreach( $outras_atividades as $post ) : setup_postdata($post);
                                         ?>
