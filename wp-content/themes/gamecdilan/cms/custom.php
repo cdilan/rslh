@@ -176,7 +176,23 @@ function gamecdilan_atividade_meta_boxes() {
         'atividade',
         'normal',
         'high'
-    );       
+    );    
+    add_meta_box(
+        'medalhas_pontos_metabox_id',
+        'Medalhas Pontos',
+        'medalhas_pontos_inner_meta_box',
+        'atividade',
+        'normal',
+        'high'
+    );   
+    add_meta_box(
+        'medalhas_badge_metabox_id',
+        'Medalhas Badge',
+        'medalhas_badge_inner_meta_box',
+        'atividade',
+        'normal',
+        'high'
+    );    
 }
 
 function form_atividade_inner_meta_box($post) {
@@ -225,6 +241,30 @@ function medalhas_jogador_inner_meta_box($post) {
 	wp_nonce_field( 'medalhas_jogador_box_nonce', 'medalhas_jogador_meta_box_nonce' ); 
 
 	wp_editor( html_entity_decode($sugeridas), 'medalhas_jogador', array( 'textarea_name' => 'medalhas_jogador', 'media_buttons' => false, 'textarea_rows' => 5 ) );
+
+}
+
+function medalhas_pontos_inner_meta_box($post) {
+
+     global $post;
+    $values = get_post_custom( $post->ID );
+    $sugeridas = isset( $values['medalhas_pontos'] ) ? esc_attr( $values['medalhas_pontos'][0] ) : '';
+
+     wp_nonce_field( 'medalhas_pontos_box_nonce', 'medalhas_pontos_meta_box_nonce' );
+
+     wp_editor( html_entity_decode($sugeridas), 'medalhas_pontos', array( 'textarea_name' => 'medalhas_pontos', 'media_buttons' => true, 'textarea_rows' => 5 ) );
+
+}
+
+function medalhas_badge_inner_meta_box($post) {
+
+     global $post;
+    $values = get_post_custom( $post->ID );
+    $sugeridas = isset( $values['medalhas_badge'] ) ? esc_attr( $values['medalhas_badge'][0] ) : '';
+
+     wp_nonce_field( 'medalhas_badge_box_nonce', 'medalhas_badge_meta_box_nonce' );
+
+     wp_editor( html_entity_decode($sugeridas), 'medalhas_pontos', array( 'textarea_name' => 'medalhas_badge', 'media_buttons' => true, 'textarea_rows' => 5 ) );
 
 }
 
@@ -316,4 +356,47 @@ function gamecdilan_medalhas_jogador_save_post( $post_id )
         update_post_meta( $post_id, 'medalhas_jogador', $_POST['medalhas_jogador'] );  
 
 } 
+add_action( 'save_post', 'gamecdilan_medalhas_pontos_save_post' );  
+function gamecdilan_medalhas_pontos_save_post( $post_id )
+{ 
+    /* --- security verification --- */ 
+    if(defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) { 
+      return $id; 
+    } // end if 
+ 
+    if(!current_user_can('edit_page', $id)) { 
+        return $id; 
+    } // end if 
+    /* - end security verification - */ 
+ 
+    // if our nonce isn't there, or we can't verify it, bail
+    if( !isset( $_POST['medalhas_pontos_meta_box_nonce'] ) || !wp_verify_nonce( $_POST['medalhas_pontos_meta_box_nonce'], 'medalhas_pontos_box_nonce' ) ) return;
+ 
+    // Make sure your data is set before trying to save it 
+    if(isset( $_POST['medalhas_pontos']))
+        update_post_meta( $post_id, 'medalhas_pontos', $_POST['medalhas_pontos'] ); 
+
+}
+
+add_action( 'save_post', 'gamecdilan_medalhas_badge_save_post' ); 
+function gamecdilan_medalhas_badge_save_post( $post_id )
+{ 
+    /* --- security verification --- */ 
+    if(defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) { 
+      return $id; 
+    } // end if 
+ 
+    if(!current_user_can('edit_page', $id)) { 
+        return $id; 
+    } // end if 
+    /* - end security verification - */ 
+ 
+    // if our nonce isn't there, or we can't verify it, bail
+    if( !isset( $_POST['medalhas_badge_meta_box_nonce'] ) || !wp_verify_nonce( $_POST['medalhas_badge_meta_box_nonce'], 'medalhas_badge_box_nonce' ) ) return;
+ 
+    // Make sure your data is set before trying to save it 
+    if(isset( $_POST['medalhas_badge']))
+        update_post_meta( $post_id, 'medalhas_badge', $_POST['medalhas_badge'] ); 
+
+}
 ?>

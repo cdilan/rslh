@@ -24,6 +24,8 @@
                                                 <?php if (has_post_thumbnail()) { the_post_thumbnail('thumbnail'); } ?>
                                                 <h2><?php the_title(); ?></h2>
                                                 <div><?php echo substr(get_the_excerpt(), 0, 180); ?>...</div>
+                                                <div class="medal-points"><?php echo do_shortcode(get_post_meta( $post->ID, 'medalhas_badge', true )); ?></div>
+                                                <br />
                                                 <a href="<?php the_permalink(); ?>" class="btn btn-primary">Fazer atividade</a>
                                             </div>
                                         </li>
