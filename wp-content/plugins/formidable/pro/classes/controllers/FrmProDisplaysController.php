@@ -986,7 +986,11 @@ class FrmProDisplaysController{
                             $order_by = rtrim($order_by, ', ');  
                         }else
                             $order_by .= 'it.created_at'.$order;
-                    }else
+                    } else if ($options['order_by'] == 'cpoints') {
+                        $order_by = 'it.'.$options['order_by'].$order;
+                    }
+
+                    else
                         $order_by = 'it.'.$options['order_by'].$order;
                     $order_by = ' ORDER BY '.$order_by;
                 }

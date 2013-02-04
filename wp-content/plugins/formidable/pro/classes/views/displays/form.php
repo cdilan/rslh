@@ -177,6 +177,7 @@ if(version_compare( $GLOBALS['wp_version'], '3.3.3', '<')){ ?>
         <td>
             <select id="order_by" name="options[order_by]">
                 <option value=""></option>
+                <option value="cpoints" <?php selected($values['order_by'], 'cpoints') ?>>cpoints</option>
                 <option value="rand" <?php selected($values['order_by'], 'rand') ?>><?php _e('Random', 'formidable') ?></option>
                 <option value="created_at" <?php selected($values['order_by'], 'created_at') ?>><?php _e('Entry creation date', 'formidable') ?></option>
                 <option value="updated_at" <?php selected($values['order_by'], 'updated_at') ?>><?php _e('Entry update date', 'formidable') ?></option>
