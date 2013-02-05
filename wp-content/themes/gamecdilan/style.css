@@ -767,25 +767,14 @@ input[type="color"],
 /* destaca links no texto fazendo estilo badge do bootstrap */
 
 #texto-inspirador a {
-	background-color: #0088CC;
-    -webkit-border-radius: 3px 3px 3px 3px;
-    -moz-border-radius: 3px 3px 3px 3px;
-    border-radius: 3px 3px 3px 3px;
-    color: #FFFFFF;
-    font-size: 11.844px;
     font-weight: bold;
-    line-height: 14px;
-    padding: 0 5px;
     text-decoration: none;
     text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
-    vertical-align: baseline;
     white-space: nowrap;
 }
 
 #texto-inspirador a:hover {
-	color: #000000;
 	text-decoration: none;
-	background-color: orange;
 	text-shadow: 0 -1px 0 rgba(255, 255, 255, 0.25);
 
 }
