@@ -862,3 +862,30 @@ input[type="color"],
 	margin-top: 30px;
 	position: absolute;
 }
+
+/* Q & A plugin */
+.faq-catname {
+    font-size: 26px;
+    margin: 0px;
+}
+
+.qa-faq-title {
+    font-size: 19px;
+    margin: 0 0 0 30px;
+    padding: 0;
+}
+
+.qa-faq-answer {
+    background-color: #F5F5F5;
+    border: 1px solid #E3E3E3;
+    margin: 0;
+    min-height: 20px;
+    padding: 9px;
+
+    -webkit-border-radius: 3px;
+  	-moz-border-radius: 3px;
+  	border-radius: 3px;
+  	-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
+  	-moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
+  	box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
+}
