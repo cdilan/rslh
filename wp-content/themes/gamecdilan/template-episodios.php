@@ -75,11 +75,13 @@ get_header(); ?>
                                     <?php echo substr($term->description, 0, 280); ?>...
                                 </p>
                                 <?php /*echo "($atividades_completadas/$quantidade_de_atividades_desse_episodio"." atividades)";*/ ?>
-                                <?php echo "($atividades_completadas completadas | $atividades_visitadas visitadas)"; ?>
+                                
                                 <div class="progress">
-                                      <div class="bar bar-warning" style="width: <?php echo $porcentagem_progresso_completada ?>%;"></div>
-                                      <div class="bar bar-success" style="width: <?php echo $porcentagem_progresso_visitada ?>%;"></div>
+                                      <div class="bar bar-success" style="width: <?php echo $porcentagem_progresso_completada ?>%;"><?php if($atividades_completadas>0) echo "<span class='label label-success'>$atividades_completadas completadas</span>"; ?></div>
+                                      <div class="bar bar-warning" style="width: <?php echo $porcentagem_progresso_visitada ?>%;"><?php  if($atividades_visitadas>0) echo "<span class='label label-warning'>$atividades_visitadas visitada </span>"; ?></div>
                                 </div>
+                                
+                                
                                 <a href="<?php echo get_term_link($term->slug, 'episodio'); ?>" class="btn btn-primary">Ver episódio <i class="icon-chevron-right icon-white"></i></a>
                                 <!--h4>Seu progresso </h4-->
                                 <br />
