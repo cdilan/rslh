@@ -77,8 +77,8 @@ get_header(); ?>
                                 <?php /*echo "($atividades_completadas/$quantidade_de_atividades_desse_episodio"." atividades)";*/ ?>
                                 
                                 <div class="progress">
-                                      <div class="bar bar-success" style="width: <?php echo $porcentagem_progresso_completada ?>%;<?php if($porcentagem_progresso_completada>9) echo ' min-width:35%;' ?>"><?php if($atividades_completadas>0) echo "<span class='label label-success' style='background:transparent'>$atividades_completadas completadas</span>"; ?></div>
-                                      <div class="bar bar-warning" style="width: <?php echo $porcentagem_progresso_visitada ?>%;  <?php if($porcentagem_progresso_visitada>9) echo ' min-width:35%;' ?>"><?php  if($atividades_visitadas>0) echo "<span class='label label-warning' style='background:transparent'>$atividades_visitadas visitada </span>"; ?></div>
+                                      <div class="bar bar-success" style="width: <?php echo $porcentagem_progresso_completada ?>%;<?php if($porcentagem_progresso_completada>9) echo ' min-width:40%;' ?>"><?php if($atividades_completadas>0) echo "<span class='label label-success' style='background:transparent'>$atividades_completadas completadas</span>"; ?></div>
+                                      <div class="bar bar-warning" style="width: <?php echo $porcentagem_progresso_visitada ?>%;  <?php if($porcentagem_progresso_visitada>9) echo ' min-width:40%;' ?>"><?php  if($atividades_visitadas>0) echo "<span class='label label-warning' style='background:transparent'>$atividades_visitadas visitada </span>"; ?></div>
                                 </div>
                                 
                                 
