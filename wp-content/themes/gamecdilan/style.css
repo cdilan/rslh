@@ -135,7 +135,7 @@ body{
 }
 
 #episodios .thumbnail{
-	height: 310px;
+	height: 380px; /*f5sites 310px;*/
 	background-color: #FFF;
 }
 
@@ -146,7 +146,7 @@ body{
 }
 
 #episodios .thumbnail p{
-	height:180px; /*f5sites 226px;*/
+	height:226px;
 }
 
 #lista-episodios .bx-prev,
@@ -861,6 +861,7 @@ input[type="color"],
 	margin-left: 172px;
 	margin-top: 30px;
 	position: absolute;
+
 }
 
 /* Q & A plugin */
@@ -888,4 +889,5 @@ input[type="color"],
   	-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
   	-moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
   	box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
+
 }

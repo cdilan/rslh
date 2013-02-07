@@ -36,30 +36,37 @@ get_header(); ?>
                                 
                                 <h2><?php echo $term->name; ?></h2>
                                 <p>
-                                    
+                                    <strong><?php echo $term->count; ?> Atividades</strong>
+                                    <br />
                                     
                                     <?php 
-                                    /*<strong><?php echo $term->count; ?> Atividades</strong> */
+                                    
                                     
                                     $query_inside_loop = query_posts('episodio='.$term->slug.'');
                                     $quantidade_de_atividades_desse_episodio = sizeof($query_inside_loop);
-                                    $porcentagem_progresso = 0;
-                                    $atividades_completadas=0;
+                                    $porcentagem_progresso_completada = 0;
+                                    $atividades_completadas = 0;
+
+                                    $atividades_visitadas = 0;
+                                    $porcentagem_progresso_visitada = 0;
                                     // The Loop
                                     while ( have_posts() ) : the_post();
                                         //the_title();
-                                        $ja_completou_essa_atividade = get_user_meta( get_current_user_id(), $key = $post->ID, $single = true );
-                                        //echo $ja_completou_essa_atividade;
-                                        if($ja_completou_essa_atividade=="completed") {
+                                        $status_atividade = get_user_meta( get_current_user_id(), $key = $post->ID, $single = true );
+                                        //echo $atividades_visitadas;
+                                        if($status_atividade=="completed") {
                                             $atividades_completadas++;
+                                        } else if($status_atividade=="visited") {
+                                            $atividades_visitadas++;
                                         }
                                     endwhile;
                                     
-                                    if($atividades_completadas>0) {
-                                        //echo $atividades_completadas."/".$quantidade_de_atividades_desse_episodio."<br/>";
-                                        $porcentagem_progresso = ($atividades_completadas/$quantidade_de_atividades_desse_episodio)*100;
-                                        //echo $porcentagem_progresso;
-                                    }
+                                    //if($atividades_completadas>0) {
+                                    //echo $atividades_completadas."/".$quantidade_de_atividades_desse_episodio."<br/>";
+                                    $porcentagem_progresso_completada = ($atividades_completadas/$quantidade_de_atividades_desse_episodio)*100;
+                                    $porcentagem_progresso_visitada = ($atividades_visitadas/$quantidade_de_atividades_desse_episodio)*100;
+                                    //echo $porcentagem_progresso_visitada;
+                                    //}
                                     //echo $atividades_completadas;
                                     // Reset Query
                                     wp_reset_query();
@@ -67,10 +74,14 @@ get_header(); ?>
 
                                     <?php echo substr($term->description, 0, 280); ?>...
                                 </p>
-                                <div class="progress progress-striped progress-warning">
-                                      <?php echo "($atividades_completadas/$quantidade_de_atividades_desse_episodio"." atividades)"; ?>  
-                                      <div class="bar" style="width: <?php echo $porcentagem_progresso ?>%;color:#000;"></div>
+                                <?php /*echo "($atividades_completadas/$quantidade_de_atividades_desse_episodio"." atividades)";*/ ?>
+                                
+                                <div class="progress">
+                                      <div class="bar bar-success" style="width: <?php echo $porcentagem_progresso_completada ?>%;"><?php if($atividades_completadas>0) echo "<span class='label label-success'>$atividades_completadas completadas</span>"; ?></div>
+                                      <div class="bar bar-warning" style="width: <?php echo $porcentagem_progresso_visitada ?>%;"><?php  if($atividades_visitadas>0) echo "<span class='label label-warning'>$atividades_visitadas visitada </span>"; ?></div>
                                 </div>
+                                
+                                
                                 <a href="<?php echo get_term_link($term->slug, 'episodio'); ?>" class="btn btn-primary">Ver episódio <i class="icon-chevron-right icon-white"></i></a>
                                 <!--h4>Seu progresso </h4-->
                                 <br />

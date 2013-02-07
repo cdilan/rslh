@@ -19,14 +19,45 @@
                             <ul class="thumbnails">
                                 <?php if (have_posts()) : ?>
                                     <?php while (have_posts()) : the_post(); ?>
-                                        <li class="span6">
-                                            <div class="thumbnail">
+                                    <?php $status_atividade = get_user_meta(get_current_user_id(),$post->ID, true); ?>
+                                    <?php if($status_atividade=="visited") {$bgcor="#FFFFD1";} elseif ($status_atividade=="completed") {$bgcor="#CCFF99";} else {$bgcor="transparent";} ?>
+                                        <li class="span6 ">
+                                            <div class="thumbnail" style="background:<?php echo $bgcor; ?>">
                                                 <?php if (has_post_thumbnail()) { the_post_thumbnail('thumbnail'); } ?>
-                                                <h2><?php the_title(); ?></h2>
+                                                
+                                                <h2>
+                                                <?php 
+                                                //icon-check icon-eye-open
+                                                //PEGADA - Sistema para salvar o rastro, regasta informação no banco de dados se usuário já visitou página 
+                                                if($status_atividade=="visited") {
+                                                    echo '<span class="badge badge-warning pull-right" style="margin:10px;"><i class="icon-eye-open"></i> visitada</span>';
+                                                } elseif($status_atividade=="completed") {
+                                                    echo '<span class="badge badge-success pull-right" style="margin:10px;"><i class="icon-check"></i> completada</span>';
+                                                }
+
+                                                ?><?php the_title(); ?></h2>
                                                 <div><?php echo substr(get_the_excerpt(), 0, 180); ?>...</div>
                                                 <div class="medal-points"><?php echo do_shortcode(get_post_meta( $post->ID, 'medalhas_badge', true )); ?></div>
-                                                <br />
-                                                <a href="<?php the_permalink(); ?>" class="btn btn-primary">Fazer atividade</a>
+
+                                                <?php if($status_atividade=="visited") { ?>
+                                                    <a href="<?php the_permalink(); ?>" class="btn btn-warning">Terminar atividade</a>
+                                                <?php } elseif($status_atividade=="completed") { ?>
+                                                    <a href="<?php the_permalink(); ?>" class="btn btn-success">Atualizar atividade</a>
+                                                <?php } else { ?>
+                                                    <a href="<?php the_permalink(); ?>" class="btn btn-primary">Conhecer atividade</a>
+                                                <?php } ?>
+
+
+                                                <?php 
+                                                //icon-check icon-eye-open
+                                                //PEGADA - Sistema para salvar o rastro, regasta informação no banco de dados se usuário já visitou página 
+                                                /*if($status_atividade=="visited") {
+                                                    echo '<span class="badge pull-right"><i class="icon-eye-open"></i> visitada</span>';
+                                                } elseif($status_atividade=="completed") {
+                                                    echo '<span class="badge pull-right"><i class="icon-check"></i> completada</span>';
+                                                }*/
+
+                                                ?>
                                             </div>
                                         </li>
                                     <?php endwhile; ?>
