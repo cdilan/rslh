@@ -862,3 +862,7 @@ input[type="color"],
 	margin-top: 30px;
 	position: absolute;
 }
+
+/* Fixa header na página de ranking f5sites */
+.header-fixed {position: fixed; background-color: #FFF;height: 140px; margin-top:-10px;}
+.table-ranking {margin-top: 150px; margin-left:30px\9;}

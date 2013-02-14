@@ -45,25 +45,24 @@
         <section id="page" class="lista-jogadores">
             <div class="container">
                 <div class="page-header header-fixed span12">
-
                     <h1><?php the_title(); ?></h1>
                     <h4>Se você não está aparecendo no ranking <a href="<?php bloginfo( url ); ?>/episodios"> faça uma atividade</a></h4>
-                </div>
-                
-                <a class="btn btn-primary" href="#<?php echo get_current_user_id(); ?>">Ir para a minha posição.</a>
-
-                <table class="table table-hover table-striped">
+                    <a class="btn btn-primary" href="#<?php echo get_current_user_id(); ?>">Ir para a minha posição.</a>
+                    <table class="table table-striped">
                     <thead>
                         <tr>
-                            <th>Posição</th>
+                            <th width="5%">Posição</th>
                             <!--th>Foto</th-->
-                            <th>Jogador</th>
-                            <th>Lan House</th>
+                            <th width="40%">Jogador</th>
+                            <th width="45%">Lan House</th>
                             <!---th>Redes Sociais</th>
                             <th>Medalhas</th-->
-                            <th>Pontos</th>
+                            <th width="5%">Pontos</th>
                         </tr>
                     </thead>
+                    </table>
+                </div>
+                <table class="table table-hover table-striped table-ranking">
                     <tbody>
                         <?php $pos=1; foreach ($blogusers as $user) { ?>
                         <tr <?php if($user->ID==get_current_user_id()) echo " class=success "; ?> >
