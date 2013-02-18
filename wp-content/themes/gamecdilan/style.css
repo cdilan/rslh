@@ -866,3 +866,7 @@ input[type="color"],
 /* Fixa header na página de ranking f5sites */
 .header-fixed {position: fixed; background-color: #FFF;height: 140px; margin-top:-10px;}
 .table-ranking {margin-top: 150px; margin-left:30px\9;}
+
+/*Efeito de mouse over, não consegui usar tooltip
+.label span{visibility: hidden; display: none;}
+.label:hover span{visibility: visible; display: inline;}*/

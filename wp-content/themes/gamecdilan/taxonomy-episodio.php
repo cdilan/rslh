@@ -30,9 +30,9 @@
                                                 //icon-check icon-eye-open
                                                 //PEGADA - Sistema para salvar o rastro, regasta informação no banco de dados se usuário já visitou página 
                                                 if($status_atividade=="visited") {
-                                                    echo '<span class="badge badge-warning pull-right" style="margin:10px;"><i class="icon-eye-open"></i> visitada</span>';
+                                                    echo '<a title="Visitada"><span class="label badge-warning pull-right" style="margin:10px;"><i class="icon-eye-open"></i></span12></a>';
                                                 } elseif($status_atividade=="completed") {
-                                                    echo '<span class="badge badge-success pull-right" style="margin:10px;"><i class="icon-check"></i> completada</span>';
+                                                    echo '<a title="Entregue"><span class="label badge-success pull-right" style="margin:10px;"><i class="icon-check"></i> </span></a>';
                                                 }
 
                                                 ?><?php the_title(); ?></h2>
